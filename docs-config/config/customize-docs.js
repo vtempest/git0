@@ -18,7 +18,7 @@ export default {
     logoURL: "/",
     logo: "https://i.imgur.com/857meew.png",
     favicon: "https://i.imgur.com/857meew.png",
-    enableFuture: false,
+    enableFuture: 0,
     topbar: [
       // {
       //   to: "/functions",

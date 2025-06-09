@@ -127,8 +127,17 @@ export default async function createConfig(options: any = {}) {
       ],
     ],
 
-    plugins: [
+    headTags: [
+      {
+        tagName: 'script',
+        attributes: {
+          src: 'https://cdn.tailwindcss.com',
+        },
+      },
+    ],
 
+    plugins: [
+     
      
       require.resolve("docusaurus-lunr-search"),
 

@@ -16,6 +16,7 @@
     "@docusaurus/faster": "^3.8.0",
     "@docusaurus/plugin-google-gtag": "^3.8.0",
     "@docusaurus/preset-classic": "^3.8.0",
+    "@tailwindcss/postcss": "^4.1.8",
     "ajv": "^8.17.1",
     "clsx": "^2.1.1",
     "docusaurus": "^1.14.7",
@@ -27,10 +28,12 @@
     "postcss": "^8.5.4",
     "prism-react-renderer": "^2.4.1",
     "react": "^19.1.0",
-    "react-dom": "^19.1.0"
+    "react-dom": "^19.1.0",
+    "tailwindcss": "^4.1.8"
   },
   "devDependencies": {
     "concurrently": "^9.1.2",
+    "lucide-react": "^0.513.0",
     "opener": "^1.5.2",
     "wait-on": "^8.0.3"
   }

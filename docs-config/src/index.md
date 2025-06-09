@@ -26,7 +26,7 @@
 </p>  
 
 
-# Git0: GitHub Zero-Step Repo Downloader
+# Git0: Download Git Repo on Step Zero 
 CLI tool to search GitHub repositories, download source & releases for your system, and instantly set up, then install dependencies and open code editor.
 
 
@@ -47,7 +47,7 @@ bun install -g git0
 ## ✨ Features
 
 - **Search GitHub repositories** by name with fuzzy matching
-- **Download repositories** directly from GitHub URLs or owner/repo shortcuts
+- **Download repositories** directly from GitHub URLs or owner/repo shortcuts. Skip the manual git clone, cd, install dance
 - **Get Releases** instantly download latest release for your system or all systems
 - **Automatic dependency detection** and installation for multiple project types
 - **Smart IDE integration** - automatically opens projects in your preferred editor
@@ -117,10 +117,3 @@ Without a token, you're limited to 60 requests per hour. With a token, you get 5
 5. **Development server starts** (for Node.js projects)
 
 If a directory with the same name exists, GG automatically appends a number (e.g., `react-2`, `react-3`).
-
-## 🎉 Why GG?
-
-- **Fast**: Skip the manual git clone, cd, install dance
-- **Smart**: Automatically detects what kind of project you're working with
-- **Convenient**: Opens your IDE and starts development servers automatically
-- **Reliable**: Handles edge cases like directory conflicts and missing dependencies

@@ -25,32 +25,36 @@
     </a>
 </p>  
 
-# Git0: Git Package Manager with Zero Steps
+# Git0: Download Git Repo on Step Zero 
+CLI tool to search GitHub repositories, download source & releases for your system, and instantly set up, then install dependencies and open code editor.
 
-CLI tool to search, download source & releases for your system, and 
-instantly set up GitHub repositories with automatic dependency installation and code editor opening.
+## 🚀 Installation
 
-![livepreview](https://i.imgur.com/EQbqLY4.gif)
+```bash
+npm install -g git0
+```
+
+```bash
+bun install -g git0
+```
+
+![livepreview](https://i.imgur.com/Io3ukRC.gif)
 ![preview](https://i.imgur.com/K22NiBq.png)
 
 ## ✨ Features
 
 - **Search GitHub repositories** by name with fuzzy matching
-- **Download repositories** directly from GitHub URLs or owner/repo shortcuts
+- **Download repositories** directly from GitHub URLs or owner/repo shortcuts. Skip the manual git clone, cd, install dance
 - **Get Releases** instantly download latest release for your system or all systems
 - **Automatic dependency detection** and installation for multiple project types
 - **Smart IDE integration** - automatically opens projects in your preferred editor
 - **Cross-platform support** - works on Windows, macOS, and Linux
 - **Conflict resolution** - handles directory naming conflicts automatically
-- **Faster than Git** - skips downloading .git history and decompress as download streams
 
 ## 🎯 Usage
 
+### Search and Download
 ```bash
-# install in bun or node
-npm i -g git0
-bun i -g git0
-
 # Search for repositories by name
 gg react starter
 
@@ -67,7 +71,7 @@ npx git0 react starter
 
 ### Supported Project Types
 
-`git0` automatically detects and sets up the following project types:
+GG automatically detects and sets up the following project types:
 
 | Project Type | Detection | Installation |
 |-------------|-----------|-------------|
@@ -79,7 +83,7 @@ npx git0 react starter
 
 ### Supported IDEs
 
-`git0` automatically detects and opens projects in your preferred IDE:
+GG automatically detects and opens projects in your preferred IDE:
 
 - **Cursor** (`cursor`)
 - **Windsurf** (`windsurf`) 
@@ -107,11 +111,4 @@ Without a token, you're limited to 60 requests per hour. With a token, you get 5
 4. **IDE is launched** automatically (if available)
 5. **Development server starts** (for Node.js projects)
 
-If a directory with the same name exists, `git0` automatically appends a number (e.g., `react-2`, `react-3`).
-
-## 🎉 Why GG?
-
-- **Fast**: Skip the manual git clone, cd, install dance
-- **Smart**: Automatically detects what kind of project you're working with
-- **Convenient**: Opens your IDE and starts development servers automatically
-- **Reliable**: Handles edge cases like directory conflicts and missing dependencies
+If a directory with the same name exists, GG automatically appends a number (e.g., `react-2`, `react-3`).

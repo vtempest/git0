@@ -6,6 +6,7 @@ const docsDir = './src';
 export default {
   default: fs.readdirSync(docsDir)
     .filter(name => fs.statSync(path.join(docsDir, name)).isDirectory())
+    .filter(name => name !== "pages")
     .map(dirName => ({
       type: "category",
       label: dirName[0].toUpperCase() + dirName.slice(1).replaceAll("-"," "),

@@ -4,7 +4,7 @@
 function downloadRepo(repo: any): Promise<void>;
 ```
 
-Defined in: git0.js:507
+Defined in: git0.js:504
 
 ### Parameters
 
@@ -43,7 +43,7 @@ Defined in: git0.js:507
 function installDependencies(targetDir: any): Promise<void>;
 ```
 
-Defined in: git0.js:397
+Defined in: git0.js:396
 
 ### Parameters
 
@@ -82,7 +82,7 @@ Defined in: git0.js:397
 function openInIDE(targetDir: any): void;
 ```
 
-Defined in: git0.js:354
+Defined in: git0.js:353
 
 ### Parameters
 
@@ -121,7 +121,7 @@ Defined in: git0.js:354
 function searchRepositories(query: any): Promise<any>;
 ```
 
-Defined in: git0.js:466
+Defined in: git0.js:465
 
 ### Parameters
 

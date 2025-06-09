@@ -14,3 +14,4 @@ vite.config.ts.timestamp-*
 bun.lock
 bun.lockb
 pnpm-lock.yaml
+.docusaurus/
