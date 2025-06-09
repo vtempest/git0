@@ -30,6 +30,7 @@
 
 A fast and smart CLI tool to search, download, and instantly set up GitHub repositories with automatic dependency installation and IDE integration.
 
+
 ## 🚀 Installation
 
 ```bash
@@ -40,6 +41,8 @@ npm install -g git-gg
 bun install -g git-gg
 ```
 
+![preview](https://i.imgur.com/K22NiBq.png)
+
 ## ✨ Features
 
 - **Search GitHub repositories** by name with fuzzy matching
@@ -49,7 +52,9 @@ bun install -g git-gg
 - **Cross-platform support** - works on Windows, macOS, and Linux
 - **Conflict resolution** - handles directory naming conflicts automatically
 
+
 ## 🎯 Usage
+
 
 ### Search and Download
 ```bash
@@ -100,23 +105,6 @@ export GITHUB_TOKEN=your_github_token_here
 
 Without a token, you're limited to 60 requests per hour. With a token, you get 5,000 requests per hour.
 
-## 📋 Examples
-
-### Search and Select
-```bash
-gg machine learning
-```
-This will show you a list of repositories matching "machine learning" sorted by stars, with descriptions and metadata.
-
-### Direct Download
-```bash
-# Clone and setup a specific repository
-gg microsoft/vscode
-
-# Works with full URLs too
-gg https://github.com/vercel/next.js
-```
-
 ### What Happens After Download
 
 1. **Repository is downloaded** to your current directory
@@ -125,36 +113,7 @@ gg https://github.com/vercel/next.js
 4. **IDE is launched** automatically (if available)
 5. **Development server starts** (for Node.js projects)
 
-## 🛠️ Technical Details
-
-### Project Detection Logic
-
-GG uses file-based detection to identify project types:
-
-- **Node.js**: Looks for `package.json`
-- **Docker**: Checks for `Dockerfile` or `docker-compose.yml`
-- **Python**: Finds `requirements.txt` or `setup.py`
-- **Rust**: Detects `Cargo.toml`
-- **Go**: Looks for `go.mod`
-
-### Smart Installation
-
-- **Node.js**: Prefers Bun over npm for faster installs, attempts to start dev server
-- **Docker**: Prioritizes docker-compose, falls back to docker build
-- **Python**: Creates virtual environment and installs dependencies
-- **Rust/Go**: Runs standard build/dependency commands
-
-### Directory Naming
-
 If a directory with the same name exists, GG automatically appends a number (e.g., `react-2`, `react-3`).
-
-## 🤝 Contributing
-
-This is a utility tool designed for quick GitHub repository setup. Feel free to submit issues or pull requests for improvements.
-
-## 📄 License
-
-MIT License - feel free to use this tool in your projects.
 
 ## 🎉 Why GG?
 
@@ -162,5 +121,3 @@ MIT License - feel free to use this tool in your projects.
 - **Smart**: Automatically detects what kind of project you're working with
 - **Convenient**: Opens your IDE and starts development servers automatically
 - **Reliable**: Handles edge cases like directory conflicts and missing dependencies
-
-Perfect for developers who frequently explore GitHub repositories and want to get up and running quickly!

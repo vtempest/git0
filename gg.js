@@ -58,6 +58,17 @@ export function openInIDE(targetDir) {
             shell: process.platform === 'win32'
         }).unref();
 
+
+        const args2 = ide.cmd === 'code-server'
+        ? ['./readme.md', '--open']
+        : ['./README.md'];
+
+        spawn(ide.cmd, args2, {
+            detached: true,
+            stdio: 'ignore',
+            shell: process.platform === 'win32'
+        }).unref();
+
         console.log(chalk.green(`🚀 Opening ${path.basename(targetDir)} in ${ide.name}`));
     } catch (error) {
         console.error(chalk.red(`❌ Failed to open ${ide.name}:`), error.message);
@@ -157,19 +168,30 @@ export async function downloadRepo(repo) {
 
     fs.mkdirSync(extractPath, { recursive: true });
     console.log(chalk.blue(`📦 Downloading ${parsed.full_name} into ${path.basename(extractPath)}...`));
-    const url = `${parsed.owner}/${parsed.name}/tarball/${parsed.default_branch || 'main'}`;
+    let url = `${parsed.owner}/${parsed.name}/tarball/${parsed.default_branch || 'main'}`;
 
     fs.mkdirSync(extractPath, { recursive: true });
     console.log(chalk.blue(`📦 Downloading ${parsed.full_name} into ${repo.name}...`));
 
     console.log(url);
     try {
-        const response = await axios({
+        let response;
+        try{ 
+            response= await axios({
             url,
             method: 'GET',
             responseType: 'stream',
             headers: TOKEN ? { Authorization: `token ${TOKEN}` } : {}
         });
+        } catch (error) {
+            url = url.replace("/main", "/master")
+            response= await axios({
+                url,
+                method: 'GET',
+                responseType: 'stream',
+                headers: TOKEN ? { Authorization: `token ${TOKEN}` } : {}
+            });
+        }
 
         await pipeline(
             response.data,
@@ -221,11 +243,12 @@ async function main() {
         parsed = gitUrlParse(`https://github.com/${query}`);
     }
 
-    if (parsed && parsed.resource === 'github.com' && parsed.owner && parsed.name) {
+
+    if (parsed && parsed.owner && parsed.name) {
         // Reconstruct the canonical HTTPS URL for download
-        repoUrl = `https://github.com/${parsed.owner}/${parsed.name}`;
-        console.log(chalk.green(`Detected GitHub repo: ${repoUrl}`));
-        await downloadRepo(repoUrl);
+        // repoUrl = `https://github.com/${parsed.owner}/${parsed.name}`;
+        // console.log(chalk.green(`Detected GitHub repo: ${repoUrl}`));
+        await downloadRepo(parsed.href);
         return;
     }
 

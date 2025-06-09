@@ -17,7 +17,8 @@
         "tar": "^6.2.1"
     },
     "scripts": {
-        "start": "node gg.js"
+        "demo": "bun gg.js react template",
+        "publish": "git commit -am 'update' && git push && npm version patch && npm publish --access public"
     },
     "type": "module",
     "bin": {
