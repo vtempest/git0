@@ -11,7 +11,7 @@ export default {
     ],
     showEditsOnGitHub: true,
     GOOGLE_ANALYTICS_ID: "/////G-E5TZ32BZD",
-    compileForSubdomain: !!process?.env?.DOCS_ON_SUBDOMAIN,
+    compileForSubdomain: true, // !!process?.env?.DOCS_ON_SUBDOMAIN,
     tsconfig: "./tsconfig.json",
     readme: "../readme.md",
     sanitizeComments: false,

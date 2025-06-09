@@ -7,8 +7,8 @@
   },
   "scripts": {
     "docs": "concurrently \"npx docusaurus serve --dir ../docs\" \"wait-on http://localhost:3000 && opener http://localhost:3000\"",
-    "docs:build:subdomain": "DOCS_ON_SUBDOMAIN=true npm run docs:build",
-    "docs:build": " mkdir ../docs; NODE_NO_WARNINGS=1 npx docusaurus clean-api-docs  all --all-versions  ; NODE_NO_WARNINGS=1 npx docusaurus  gen-api-docs all  --all-versions ;  DOCUSAURUS_IGNORE_SSG_WARNINGS=true npx docusaurus build --out-dir ../docs; npm run docs",
+    "build:docs:subdomain": "DOCS_ON_SUBDOMAIN=true npm run docs:build",
+    "build:docs": " mkdir ../docs; NODE_NO_WARNINGS=1 npx docusaurus clean-api-docs  all --all-versions  ; NODE_NO_WARNINGS=1 npx docusaurus  gen-api-docs all  --all-versions ;  DOCUSAURUS_IGNORE_SSG_WARNINGS=true npx docusaurus build --out-dir ../docs; npm run docs",
     "docs:copy": "cp ../docs/functions/index.html ../docs/index.html; rm -rf ../web-app/static/docs; cp -r ../docs ../web-app/static; mv ../web-app/static/dist ../web-app/static/docs"
   },
   "dependencies": {

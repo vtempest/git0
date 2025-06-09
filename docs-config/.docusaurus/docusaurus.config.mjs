@@ -27,7 +27,7 @@ export default {
   },
   "title": "git0 Docs",
   "url": "https://git0.js.org",
-  "baseUrl": "/docs/",
+  "baseUrl": "/",
   "onBrokenLinks": "ignore",
   "onBrokenMarkdownLinks": "ignore",
   "favicon": "https://i.imgur.com/857meew.png",
@@ -53,7 +53,7 @@ export default {
     ]
   ],
   "plugins": [
-    "/home/deck/Projects/gg/docs-config/node_modules/docusaurus-lunr-search/src/index.js",
+    "/home/deck/Projects/git0/docs-config/node_modules/docusaurus-lunr-search/src/index.js",
     [
       "docusaurus-plugin-typedoc",
       {

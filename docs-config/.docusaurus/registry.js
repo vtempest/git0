@@ -1,6 +1,6 @@
 export default {
-  "11b43341": [() => import(/* webpackChunkName: "11b43341" */ "@generated/docusaurus-plugin-content-docs/default/p/docs-7fc.json"), "@generated/docusaurus-plugin-content-docs/default/p/docs-7fc.json", require.resolveWeak("@generated/docusaurus-plugin-content-docs/default/p/docs-7fc.json")],
   "17896441": [() => import(/* webpackChunkName: "17896441" */ "@theme/DocItem"), "@theme/DocItem", require.resolveWeak("@theme/DocItem")],
+  "22dd74f7": [() => import(/* webpackChunkName: "22dd74f7" */ "@generated/docusaurus-plugin-content-docs/default/p/index-466.json"), "@generated/docusaurus-plugin-content-docs/default/p/index-466.json", require.resolveWeak("@generated/docusaurus-plugin-content-docs/default/p/index-466.json")],
   "4a829dc8": [() => import(/* webpackChunkName: "4a829dc8" */ "@site/src/functions/globals.md"), "@site/src/functions/globals.md", require.resolveWeak("@site/src/functions/globals.md")],
   "5e95c892": [() => import(/* webpackChunkName: "5e95c892" */ "@theme/DocsRoot"), "@theme/DocsRoot", require.resolveWeak("@theme/DocsRoot")],
   "a7bd4aaa": [() => import(/* webpackChunkName: "a7bd4aaa" */ "@theme/DocVersionRoot"), "@theme/DocVersionRoot", require.resolveWeak("@theme/DocVersionRoot")],

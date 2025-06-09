@@ -5,7 +5,7 @@
   "source": "@site/src/functions/index.md",
   "sourceDirName": "functions",
   "slug": "/functions/",
-  "permalink": "/docs/functions/",
+  "permalink": "/functions/",
   "draft": false,
   "unlisted": false,
   "tags": [],
@@ -14,6 +14,6 @@
   "sidebar": "default",
   "previous": {
     "title": "globals",
-    "permalink": "/docs/functions/globals"
+    "permalink": "/functions/globals"
   }
 }

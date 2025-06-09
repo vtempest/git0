@@ -27,8 +27,7 @@
 
 
 # Git0: GitHub Zero-Step Repo Downloader
-
-A fast and smart CLI tool to search, download source & releases for your system, and instantly set up GitHub repositories with automatic dependency installation and IDE integration.
+CLI tool to search GitHub repositories, download source & releases for your system, and instantly set up, then install dependencies and open code editor.
 
 
 ## 🚀 Installation

@@ -1,7 +1,7 @@
 {
     "name": "git0",
     "version": "0.2.0",
-    "description": "A CLI manager for downloading GitHub repos.",
+    "description": "CLI tool to search GitHub repositories, download source & releases for your system, and instantly set up, then install dependencies and open code editor.",
     "author": "vtempest",
     "license": "MIT",
     "keywords": [
@@ -19,6 +19,7 @@
         "tar": "^7.4.3"
     },
     "scripts": {
+        "docs": "cd docs-config && bun run build:docs",
         "demo": "bun gg.js react template",
         "publish:npm": "npm version patch && npm publish --access public"
     },

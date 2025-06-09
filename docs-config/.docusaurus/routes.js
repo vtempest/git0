@@ -3,32 +3,32 @@ import ComponentCreator from '@docusaurus/ComponentCreator';
 
 export default [
   {
-    path: '/docs/',
-    component: ComponentCreator('/docs/', '305'),
+    path: '/',
+    component: ComponentCreator('/', 'b83'),
     routes: [
       {
-        path: '/docs/',
-        component: ComponentCreator('/docs/', '29e'),
+        path: '/',
+        component: ComponentCreator('/', '587'),
         routes: [
           {
-            path: '/docs/',
-            component: ComponentCreator('/docs/', 'b03'),
+            path: '/',
+            component: ComponentCreator('/', 'ad5'),
             routes: [
               {
-                path: '/docs/functions/',
-                component: ComponentCreator('/docs/functions/', '248'),
+                path: '/functions/',
+                component: ComponentCreator('/functions/', '5b3'),
                 exact: true,
                 sidebar: "default"
               },
               {
-                path: '/docs/functions/globals',
-                component: ComponentCreator('/docs/functions/globals', 'e64'),
+                path: '/functions/globals',
+                component: ComponentCreator('/functions/globals', 'a2b'),
                 exact: true,
                 sidebar: "default"
               },
               {
-                path: '/docs/',
-                component: ComponentCreator('/docs/', '1ac'),
+                path: '/',
+                component: ComponentCreator('/', 'bea'),
                 exact: true
               }
             ]
