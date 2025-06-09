@@ -1,0 +1,26 @@
+{
+  "include": [
+    "../git0.js"
+   ],
+  "compilerOptions": {
+    "jsx": "react",
+
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "allowJs": true,
+    "checkJs": false,
+    "noEmitOnError": false,
+    "strict": false,
+    "isolatedModules": false,
+    "skipLibCheck": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true
+  },
+ 
+  "exclude": [
+    "../node_modules",
+    "../docs"
+  ]
+}
