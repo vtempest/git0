@@ -12,3 +12,5 @@ vite.config.ts.timestamp-*
 .cloudflare/
 .wappler/
 bun.lock
+bun.lockb
+pnpm-lock.yaml

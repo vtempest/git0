@@ -28,7 +28,7 @@
 
 # Git0: GitHub Zero-Step Repo Downloader
 
-A fast and smart CLI tool to search, download, and instantly set up GitHub repositories with automatic dependency installation and IDE integration.
+A fast and smart CLI tool to search, download source & releases for your system, and instantly set up GitHub repositories with automatic dependency installation and IDE integration.
 
 
 ## 🚀 Installation
@@ -41,12 +41,15 @@ npm install -g git0
 bun install -g git0
 ```
 
+![livepreview](https://i.imgur.com/Io3ukRC.gif)
 ![preview](https://i.imgur.com/K22NiBq.png)
+
 
 ## ✨ Features
 
 - **Search GitHub repositories** by name with fuzzy matching
 - **Download repositories** directly from GitHub URLs or owner/repo shortcuts
+- **Get Releases** instantly download latest release for your system or all systems
 - **Automatic dependency detection** and installation for multiple project types
 - **Smart IDE integration** - automatically opens projects in your preferred editor
 - **Cross-platform support** - works on Windows, macOS, and Linux
@@ -98,7 +101,7 @@ GG automatically detects and opens projects in your preferred IDE:
 
 ### GitHub Token (Optional)
 
-For higher API rate limits, set your GitHub token:
+For higher API rate limits, set [your GitHub token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens#creating-a-fine-grained-personal-access-token):
 
 ```bash
 export GITHUB_TOKEN=your_github_token_here

@@ -3,7 +3,7 @@
 import inquirer from 'inquirer';
 import chalk from 'chalk';
 import { execSync, spawn } from 'child_process';
-import axios from 'axios';
+import grab from 'grab-api.js';
 import * as tar from 'tar'
 import { pipeline } from 'stream/promises';
 import fs from 'fs';
@@ -15,24 +15,47 @@ const GITHUB_API = 'https://api.github.com/search/repositories';
 const RESULTS_PER_PAGE = 10;
 const TOKEN = process.env.GITHUB_TOKEN;
 
+const githubHelpUrl = 'https://github.com/settings/personal-access-tokens/new'
+grab('', {
+    setDefaults: true,
+    debug: false,
+    onError: (error) => {
+        if (error.includes('403')) {
+            log(chalk.red('Rate limit exceeded. Please set env var GITHUB_TOKEN. Help:\n' + githubHelpUrl));
+            process.exit(1);
+
+        }
+    }
+}
+)
+
+function printLogo() {
+    console.log(chalk.cyan(`                ___  
+    __ _(_)‾|_ / _ \\ 
+   / _  | | __| | | |
+  | (_| | | |_| |_| |
+   \\__, |_|\\__|\\___/ 
+   |___/`))
+}
+
 // Detect current operating system and architecture
 function getCurrentPlatform() {
     const platform = os.platform();
     const arch = os.arch();
-    
+
     const platformMap = {
         'win32': 'windows',
         'darwin': 'macos',
         'linux': 'linux'
     };
-    
+
     const archMap = {
         'x64': 'x86_64',
         'arm64': 'arm64',
         'arm': 'arm',
         'ia32': 'i386'
     };
-    
+
     return {
         os: platformMap[platform] || platform,
         arch: archMap[arch] || arch,
@@ -44,11 +67,13 @@ function getCurrentPlatform() {
 // Get releases for a repository
 async function getRepositoryReleases(owner, repo) {
     try {
-        const response = await axios.get(`https://api.github.com/repos/${owner}/${repo}/releases`, {
+        const response = await grab(`https://api.github.com/repos/${owner}/${repo}/releases`, {
             headers: TOKEN ? { Authorization: `token ${TOKEN}` } : {},
-            params: { per_page: 5 } // Get latest 5 releases
+            per_page: 5 // Get latest 5 releases
+
         });
-        return response.data;
+
+        return response;
     } catch (error) {
         return [];
     }
@@ -61,28 +86,28 @@ function categorizeReleasesByPlatform(releases) {
         macos: ['mac', 'macos', 'darwin', 'osx', '.dmg', '.pkg'],
         linux: ['linux', 'ubuntu', 'debian', '.deb', '.rpm', '.tar.gz', '.AppImage']
     };
-    
+
     const archKeywords = {
         x86_64: ['x86_64', 'x64', 'amd64', '64'],
         arm64: ['arm64', 'aarch64'],
         arm: ['arm', 'armv7'],
         i386: ['i386', 'x86', '32']
     };
-    
+
     const categorizedReleases = [];
-    
-    releases.forEach(release => {
+
+    Object.entries(releases).forEach(([key, release]) => {
         const platformAssets = {
             windows: [],
             macos: [],
             linux: [],
             universal: []
         };
-        
+
         release.assets.forEach(asset => {
             const name = asset.name.toLowerCase();
             let categorized = false;
-            
+
             // Check each platform
             Object.entries(platformKeywords).forEach(([platform, keywords]) => {
                 if (keywords.some(keyword => name.includes(keyword.toLowerCase()))) {
@@ -93,7 +118,7 @@ function categorizeReleasesByPlatform(releases) {
                             detectedArch = arch;
                         }
                     });
-                    
+
                     platformAssets[platform].push({
                         ...asset,
                         detectedArch,
@@ -102,10 +127,10 @@ function categorizeReleasesByPlatform(releases) {
                     categorized = true;
                 }
             });
-            
+
             // If not categorized, check for universal binaries
-            if (!categorized && (name.includes('universal') || name.includes('all') || 
-                              (!name.includes('win') && !name.includes('mac') && !name.includes('linux')))) {
+            if (!categorized && (name.includes('universal') || name.includes('all') ||
+                (!name.includes('win') && !name.includes('mac') && !name.includes('linux')))) {
                 platformAssets.universal.push({
                     ...asset,
                     detectedArch: 'universal',
@@ -113,7 +138,7 @@ function categorizeReleasesByPlatform(releases) {
                 });
             }
         });
-        
+
         // Only include releases that have assets
         const hasAssets = Object.values(platformAssets).some(assets => assets.length > 0);
         if (hasAssets) {
@@ -123,52 +148,53 @@ function categorizeReleasesByPlatform(releases) {
             });
         }
     });
-    
+
     return categorizedReleases;
 }
 
 // Filter releases for current platform (for compatibility indicator)
 function filterReleasesByPlatform(releases, currentPlatform) {
     const categorized = categorizeReleasesByPlatform(releases);
-    return categorized.filter(release => 
+    return categorized.filter(release =>
         release.platformAssets[currentPlatform.os].length > 0 ||
         release.platformAssets.universal.length > 0
     );
 }
 
+
 // Download and install package
 async function downloadPackage(asset, targetDir) {
     const fileName = asset.name;
     const downloadPath = path.join(targetDir, fileName);
-    
-    console.log(chalk.blue(`📦 Downloading ${fileName}...`));
-    
+
+    log(chalk.blue(`📦 Downloading ${fileName}...`));
+    printLogo()
     try {
-        const response = await axios({
-            url: asset.browser_download_url,
-            method: 'GET',
-            responseType: 'stream',
-            headers: TOKEN ? { Authorization: `token ${TOKEN}` } : {}
+        const response = await grab(asset.browser_download_url, {
+            headers: TOKEN ? { Authorization: `token ${TOKEN}` } : {},
+            onStream: async (res) => {
+                const nodeStream = (await import('stream'))?.Readable.fromWeb(res);
+                await new Promise((resolve, reject) => {
+                    nodeStream.pipe(fs.createWriteStream(downloadPath)).on('finish', resolve).on('error', reject);
+                });
+            }
         });
-        
-        const writer = fs.createWriteStream(downloadPath);
-        await pipeline(response.data, writer);
-        
-        console.log(chalk.green(`✅ Downloaded ${fileName} to ${downloadPath}`));
-        
+
+        log(chalk.green(`✅ Downloaded ${fileName} to ${downloadPath}`));
+
         // Try to make executable if it's a binary
         if (process.platform !== 'win32' && !fileName.includes('.')) {
             try {
                 fs.chmodSync(downloadPath, '755');
-                console.log(chalk.green(`✅ Made ${fileName} executable`));
+                log(chalk.green(`✅ Made ${fileName} executable`));
             } catch (error) {
-                console.log(chalk.yellow(`⚠️  Could not make ${fileName} executable`));
+                log(chalk.yellow(`⚠️  Could not make ${fileName} executable`));
             }
         }
-        
+
         // Provide installation instructions
         provideInstallationInstructions(downloadPath, asset);
-        
+
     } catch (error) {
         console.error(chalk.red(`❌ Failed to download ${fileName}:`), error.message);
     }
@@ -178,40 +204,38 @@ async function downloadPackage(asset, targetDir) {
 function provideInstallationInstructions(filePath, asset) {
     const fileName = asset.name;
     const platform = getCurrentPlatform();
-    
-    console.log(chalk.cyan('\n📋 Installation Instructions:'));
-    
+
     if (platform.platform === 'win32') {
         if (fileName.endsWith('.exe')) {
-            console.log(chalk.white('  Run the executable:'));
-            console.log(chalk.gray(`  ${filePath}`));
+            log(chalk.white('  Run the executable:'));
+            log(chalk.gray(`  ${filePath}`));
         } else if (fileName.endsWith('.msi')) {
-            console.log(chalk.white('  Install the MSI package:'));
-            console.log(chalk.gray(`  msiexec /i "${filePath}"`));
+            log(chalk.white('  Install the MSI package:'));
+            log(chalk.gray(`  msiexec /i "${filePath}"`));
         }
     } else if (platform.platform === 'darwin') {
         if (fileName.endsWith('.dmg')) {
-            console.log(chalk.white('  Mount and install the DMG:'));
-            console.log(chalk.gray(`  open "${filePath}"`));
+            log(chalk.white('  Mount and install the DMG:'));
+            log(chalk.gray(`  open "${filePath}"`));
         } else if (fileName.endsWith('.pkg')) {
-            console.log(chalk.white('  Install the package:'));
-            console.log(chalk.gray(`  sudo installer -pkg "${filePath}" -target /`));
+            log(chalk.white('  Install the package:'));
+            log(chalk.gray(`  sudo installer -pkg "${filePath}" -target /`));
         }
     } else {
         if (fileName.endsWith('.deb')) {
-            console.log(chalk.white('  Install the DEB package:'));
-            console.log(chalk.gray(`  sudo dpkg -i "${filePath}"`));
+            log(chalk.white('  Install the DEB package:'));
+            log(chalk.gray(`  sudo dpkg -i "${filePath}"`));
         } else if (fileName.endsWith('.rpm')) {
-            console.log(chalk.white('  Install the RPM package:'));
-            console.log(chalk.gray(`  sudo rpm -i "${filePath}"`));
+            log(chalk.white('  Install the RPM package:'));
+            log(chalk.gray(`  sudo rpm -i "${filePath}"`));
         } else if (fileName.endsWith('.AppImage')) {
-            console.log(chalk.white('  Run the AppImage:'));
-            console.log(chalk.gray(`  chmod +x "${filePath}" && "${filePath}"`));
+            log(chalk.white('  Run the AppImage:'));
+            log(chalk.gray(`  chmod +x "${filePath}" && "${filePath}"`));
         } else if (!fileName.includes('.')) {
-            console.log(chalk.white('  Binary is ready to use:'));
-            console.log(chalk.gray(`  "${filePath}"`));
-            console.log(chalk.white('  Consider moving to PATH:'));
-            console.log(chalk.gray(`  sudo mv "${filePath}" /usr/local/bin/`));
+            log(chalk.white('  Binary is ready to use:'));
+            log(chalk.gray(`  "${filePath}"`));
+            log(chalk.white('  Consider moving to PATH:'));
+            log(chalk.gray(`  sudo mv "${filePath}" /usr/local/bin/`));
         }
     }
 }
@@ -220,59 +244,60 @@ function provideInstallationInstructions(filePath, asset) {
 async function showPackageMenu(selectedRepo) {
     const currentPlatform = getCurrentPlatform();
     const releaseChoices = [];
-    
+    const limitReleases = 2;
+
     // Add section headers and organize by platform
-    selectedRepo.allReleases.forEach(release => {
+    selectedRepo.allReleases.slice(0, limitReleases).forEach(release => {
         const platforms = ['windows', 'macos', 'linux', 'universal'];
-        
+
         platforms.forEach(platform => {
             const assets = release.platformAssets[platform];
             if (assets.length > 0) {
                 // Add platform header
                 const platformEmoji = {
                     windows: '🪟',
-                    macos: '🍎', 
+                    macos: '🍎',
                     linux: '🐧',
                     universal: '🌐'
                 };
-                
+
                 const platformName = {
                     windows: 'Windows',
                     macos: 'macOS',
                     linux: 'Linux',
                     universal: 'Universal'
                 };
-                
+
                 const isCurrentPlatform = platform === currentPlatform.os || platform === 'universal';
-                const platformHeader = isCurrentPlatform 
+                const platformHeader = isCurrentPlatform
                     ? chalk.green(`${platformEmoji[platform]} ${platformName[platform]} (Your Platform)`)
                     : chalk.gray(`${platformEmoji[platform]} ${platformName[platform]}`);
-                
+
                 // Add separator if not first platform in this release
-                const needsSeparator = releaseChoices.length > 0 && 
+                const needsSeparator = releaseChoices.length > 0 &&
                     !releaseChoices[releaseChoices.length - 1].name.includes('────');
-                
+
                 if (needsSeparator) {
                     releaseChoices.push({
                         name: chalk.gray('────────────────────────────────'),
                         disabled: true
                     });
                 }
-                
+
                 releaseChoices.push({
                     name: `${chalk.bold(release.tag_name)} - ${platformHeader}`,
                     disabled: true
                 });
-                
+
                 // Add assets for this platform
                 assets.forEach(asset => {
                     const sizeStr = (asset.size / 1024 / 1024).toFixed(2);
-                    const archInfo = asset.detectedArch !== 'unknown' && asset.detectedArch !== 'universal' 
-                        ? chalk.cyan(`[${asset.detectedArch}]`) 
+                    const archInfo = asset.detectedArch !== 'unknown' && asset.detectedArch !== 'universal'
+                        ? chalk.cyan(`[${asset.detectedArch}]`)
                         : '';
-                    
+
                     const highlight = isCurrentPlatform ? chalk.white : chalk.gray;
-                    
+
                     releaseChoices.push({
                         name: `  ${highlight(`${asset.name} ${archInfo} (${sizeStr} MB)`)}`,
                         value: { release, asset }
@@ -283,7 +308,7 @@ async function showPackageMenu(selectedRepo) {
     });
 
     if (releaseChoices.filter(choice => !choice.disabled).length === 0) {
-        console.log(chalk.yellow('No packages found for download.'));
+        log(chalk.yellow('No packages found for download.'));
         return;
     }
 
@@ -295,7 +320,7 @@ async function showPackageMenu(selectedRepo) {
         pageSize: 15
     });
 
-    const downloadDir = path.resolve(process.cwd(), 'downloads');
+    const downloadDir = path.resolve(process.cwd());
     fs.mkdirSync(downloadDir, { recursive: true });
     await downloadPackage(selectedPackage.asset, downloadDir);
 }
@@ -328,7 +353,7 @@ function getIdeCommand() {
 export function openInIDE(targetDir) {
     const ide = getIdeCommand();
     if (!ide) {
-        console.log(chalk.yellow('⚠️  No supported IDE found'));
+        log(chalk.yellow('⚠️  No supported IDE found'));
         return;
     }
 
@@ -343,17 +368,26 @@ export function openInIDE(targetDir) {
             shell: process.platform === 'win32'
         }).unref();
 
-        const args2 = ide.cmd === 'code-server'
-        ? ['./readme.md', '--open']
-        : ['./README.md'];
+        // open readme after 3 seconds
+        setTimeout(() => {
 
-        spawn(ide.cmd, args2, {
-            detached: true,
-            stdio: 'ignore',
-            shell: process.platform === 'win32'
-        }).unref();
+            const readme = fs.existsSync('./readme.md') ? './readme.md' :
+                fs.existsSync('./Readme.md') ? './Readme.md' :
+                fs.existsSync('./README.md') ? './README.md' :
+                    fs.existsSync('./package.json') ? './package.json' :
+                        null;
 
-        console.log(chalk.green(`🚀 Opening ${path.basename(targetDir)} in ${ide.name}`));
+            if (readme)
+                spawn(ide.cmd, ide.cmd === 'code-server'
+                    ? [readme, '--open']
+                    : [readme], {
+                    detached: true,
+                    stdio: 'ignore',
+                    shell: process.platform === 'win32'
+                }).unref();
+        }, 3000);
+
+        log(chalk.green(`🚀 Opening ${path.basename(targetDir)} in ${ide.name}`));
     } catch (error) {
         console.error(chalk.red(`❌ Failed to open ${ide.name}:`), error.message);
     }
@@ -413,14 +447,14 @@ export async function installDependencies(targetDir) {
     // Run detections and installations
     Object.entries(detectors).forEach(([name, check]) => {
         if (check()) {
-            console.log(chalk.yellow(`⚙️  Detected ${name} project`));
+            // log(chalk.yellow(`⚙️  Detected ${name} project`));
             installers[name]?.();
         }
     });
 }
 
 function runCommand(cmd) {
-    console.log(chalk.cyan(`🚀 Running: ${cmd}`));
+    log(chalk.cyan(`🚀 Running: ${cmd}`));
     try {
         execSync(cmd, { stdio: 'inherit' });
     } catch (error) {
@@ -430,24 +464,26 @@ function runCommand(cmd) {
 
 export async function searchRepositories(query) {
     try {
-        const response = await axios.get(GITHUB_API, {
-            params: {
-                q: `${query} in:name`,
-                sort: 'stars',
-                order: 'desc',
-                per_page: RESULTS_PER_PAGE
-            },
+        const response = await grab(GITHUB_API, {
+            q: `${query} in:name`,
+            sort: 'stars',
+            order: 'desc',
+            per_page: RESULTS_PER_PAGE,
+            debug: false,
             headers: TOKEN ? { Authorization: `token ${TOKEN}` } : {}
         });
-        
+
+        if (response.error || !response.items)
+            return log("No response")
+
         // Check for releases for each repository
         const reposWithReleases = await Promise.all(
-            response.data.items.map(async (repo) => {
+            response.items.map(async (repo) => {
                 const releases = await getRepositoryReleases(repo.owner.login, repo.name);
                 const currentPlatform = getCurrentPlatform();
                 const compatibleReleases = filterReleasesByPlatform(releases, currentPlatform);
                 const categorizedReleases = categorizeReleasesByPlatform(releases);
-                
+
                 return {
                     ...repo,
                     hasReleases: releases.length > 0,
@@ -457,49 +493,50 @@ export async function searchRepositories(query) {
                 };
             })
         );
-        
+
         return reposWithReleases;
     } catch (error) {
-        console.error(chalk.red('Search failed:'), error.response?.data?.message || error.message);
+        console.error(chalk.red('Search failed:'), error.message);
         process.exit(1);
     }
 }
 
 export async function downloadRepo(repo) {
-    const parsed = gitUrlParse(`https://github.com/${repo}`);
+    const parsed = gitUrlParse(repo);
     const defaultDir = path.resolve(process.cwd(), parsed.name);
     const extractPath = getAvailableDirectoryName(defaultDir);
 
+    // if it picks up a larger owner name, slice to the last part
+    if (parsed.owner.includes('/'))
+        parsed.owner = parsed.owner.split('/').slice(-1).join('');
+
     fs.mkdirSync(extractPath, { recursive: true });
-    console.log(chalk.blue(`📦 Downloading ${parsed.full_name} into ${path.basename(extractPath)}...`));
-    let url = `https://api.github.com/repos/${parsed.owner}/${parsed.name}/tarball/${parsed.default_branch || 'main'}`;
+    log(chalk.blue(`📦 Downloading ${parsed.name} into ${path.basename(extractPath)}...`));
+    printLogo()
+
+    let url = `https://api.github.com/repos/${parsed.owner}/${parsed.name}/tarball/${parsed.default_branch || 'master'}`;
 
     try {
-        let response;
-        try { 
-            response = await axios({
-                url,
-                method: 'GET',
-                responseType: 'stream',
-                headers: TOKEN ? { Authorization: `token ${TOKEN}` } : {}
-            });
-        } catch (error) {
-            url = url.replace("/main", "/master");
-            response = await axios({
-                url,
-                method: 'GET',
-                responseType: 'stream',
-                headers: TOKEN ? { Authorization: `token ${TOKEN}` } : {}
-            });
+
+        var params = {
+            headers: TOKEN ? { Authorization: `token ${TOKEN}` } : {},
+            onStream: async (res) => {
+
+                const nodeStream = (await import('stream'))?.Readable.fromWeb(res);
+                await new Promise((resolve, reject) => {
+                    nodeStream.pipe(tar.x({
+                        C: extractPath,
+                        strip: 1
+                    })).on('finish', resolve).on('error', reject);
+                });
+            }
         }
 
-        await pipeline(
-            response.data,
-            tar.x({
-                C: extractPath,
-                strip: 1
-            })
-        );
+        var response = await grab(url, params);
+
+        if (response.error)
+            response = await grab(url.replace("/master", "/main"), params);
+
 
         setTimeout(() => {
             openInIDE(extractPath);
@@ -523,16 +560,16 @@ function getAvailableDirectoryName(basePath) {
 }
 
 async function main() {
+    printLogo()
     const args = process.argv.slice(2);
     if (!args.length) {
-        console.log(chalk.yellow('Usage: gg <search-query>'));
+        log(chalk.yellow('Usage: gg <search-query>'));
         process.exit(1);
     }
 
     const query = args.join(' ');
     const currentPlatform = getCurrentPlatform();
-    
-    console.log(chalk.gray(`🖥️  Detected platform: ${currentPlatform.os} ${currentPlatform.arch}`));
+
 
     let repoUrl = null;
 
@@ -553,22 +590,23 @@ async function main() {
 
     const results = await searchRepositories(query);
 
-    if (!results.length) {
-        console.log(chalk.yellow('No repositories found'));
+    if (!results || !results.length) {
+        log(chalk.yellow('No repositories found'));
         return;
     }
+
 
     const { selectedRepo } = await inquirer.prompt({
         type: 'list',
         name: 'selectedRepo',
         message: 'Select a repository to download:',
         choices: results.map(repo => {
-            const packageInfo = repo.hasCompatibleReleases 
-                ? chalk.green(' 📦 Packages available') 
-                : repo.hasReleases 
-                    ? chalk.yellow(' 📦 Packages (other platforms)') 
+            const packageInfo = repo.hasCompatibleReleases
+                ? chalk.green(' 📦 Packages available')
+                : repo.hasReleases
+                    ? chalk.yellow(' 📦 Packages (other platforms)')
                     : '';
-            
+
             return {
                 name: `${chalk.bold(repo.full_name)} - ${chalk.gray(repo.description || 'No description')}
       ${chalk.yellow(`★ ${repo.stargazers_count}`)} | ${chalk.blue(repo.language || 'Unknown')}${packageInfo}`,
@@ -578,7 +616,7 @@ async function main() {
     });
 
     // If the selected repo has any releases, show download options
-    if (selectedRepo.hasReleases) {
+    if (selectedRepo.hasReleases || selectedRepo.hasCompatibleReleases) {
         const { downloadChoice } = await inquirer.prompt({
             type: 'list',
             name: 'downloadChoice',
@@ -595,11 +633,11 @@ async function main() {
         }
 
         if (downloadChoice === 'source' || downloadChoice === 'both') {
-            await downloadRepo(selectedRepo.html_url);
+            await downloadRepo(selectedRepo.url);
         }
     } else {
         // No packages, just download source
-        await downloadRepo(selectedRepo.html_url);
+        await downloadRepo(selectedRepo.url);
     }
 }
 
