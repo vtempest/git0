@@ -1,6 +1,6 @@
 {
-    "name": "git-gg",
-    "version": "0.1.1",
+    "name": "git0",
+    "version": "0.1.4",
     "description": "A CLI manager for downloading GitHub repos.",
     "author": "vtempest",
     "license": "MIT",
@@ -18,10 +18,11 @@
     },
     "scripts": {
         "demo": "bun gg.js react template",
-        "publish": "npm version patch && npm publish --access public"
+        "publish:npm": "npm version patch && npm publish --access public"
     },
     "type": "module",
     "bin": {
-        "gg": "./gg.js"
+        "gg": "./gg.js",
+        "git0": "./gg.js"
     }
 }

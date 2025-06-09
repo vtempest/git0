@@ -1,5 +1,5 @@
 <p align="center">
-    <img  src="https://i.imgur.com/zG1QI1q.png" />
+    <img  src="https://i.imgur.com/poOtI3N.png" />
 </p>
 <p align="center">
     <a href="https://discord.gg/SJdBqBz3tV">
@@ -26,7 +26,7 @@
 </p>  
 
 
-# GG - GitHub Repo Downloader
+# Git0: GitHub Zero-Step Repo Downloader
 
 A fast and smart CLI tool to search, download, and instantly set up GitHub repositories with automatic dependency installation and IDE integration.
 
@@ -34,11 +34,11 @@ A fast and smart CLI tool to search, download, and instantly set up GitHub repos
 ## 🚀 Installation
 
 ```bash
-npm install -g git-gg
+npm install -g git0
 ```
 
 ```bash
-bun install -g git-gg
+bun install -g git0
 ```
 
 ![preview](https://i.imgur.com/K22NiBq.png)
@@ -65,10 +65,11 @@ gg react starter
 gg https://github.com/facebook/react
 
 # Download using owner/repo shorthand
-gg facebook/react
+## gg and git0 both work
+git0 facebook/react
 
 ## Use without installing
-npx git-gg react starter
+npx git0 react starter
 ```
 
 ### Supported Project Types
