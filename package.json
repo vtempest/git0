@@ -1,6 +1,6 @@
 {
     "name": "git0",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "description": "A CLI manager for downloading GitHub repos.",
     "author": "vtempest",
     "license": "MIT",

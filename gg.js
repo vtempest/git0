@@ -216,6 +216,90 @@ function provideInstallationInstructions(filePath, asset) {
     }
 }
 
+// Show package selection menu organized by platform
+async function showPackageMenu(selectedRepo) {
+    const currentPlatform = getCurrentPlatform();
+    const releaseChoices = [];
+    
+    // Add section headers and organize by platform
+    selectedRepo.allReleases.forEach(release => {
+        const platforms = ['windows', 'macos', 'linux', 'universal'];
+        
+        platforms.forEach(platform => {
+            const assets = release.platformAssets[platform];
+            if (assets.length > 0) {
+                // Add platform header
+                const platformEmoji = {
+                    windows: '🪟',
+                    macos: '🍎', 
+                    linux: '🐧',
+                    universal: '🌐'
+                };
+                
+                const platformName = {
+                    windows: 'Windows',
+                    macos: 'macOS',
+                    linux: 'Linux',
+                    universal: 'Universal'
+                };
+                
+                const isCurrentPlatform = platform === currentPlatform.os || platform === 'universal';
+                const platformHeader = isCurrentPlatform 
+                    ? chalk.green(`${platformEmoji[platform]} ${platformName[platform]} (Your Platform)`)
+                    : chalk.gray(`${platformEmoji[platform]} ${platformName[platform]}`);
+                
+                // Add separator if not first platform in this release
+                const needsSeparator = releaseChoices.length > 0 && 
+                    !releaseChoices[releaseChoices.length - 1].name.includes('────');
+                
+                if (needsSeparator) {
+                    releaseChoices.push({
+                        name: chalk.gray('────────────────────────────────'),
+                        disabled: true
+                    });
+                }
+                
+                releaseChoices.push({
+                    name: `${chalk.bold(release.tag_name)} - ${platformHeader}`,
+                    disabled: true
+                });
+                
+                // Add assets for this platform
+                assets.forEach(asset => {
+                    const sizeStr = (asset.size / 1024 / 1024).toFixed(2);
+                    const archInfo = asset.detectedArch !== 'unknown' && asset.detectedArch !== 'universal' 
+                        ? chalk.cyan(`[${asset.detectedArch}]`) 
+                        : '';
+                    
+                    const highlight = isCurrentPlatform ? chalk.white : chalk.gray;
+                    
+                    releaseChoices.push({
+                        name: `  ${highlight(`${asset.name} ${archInfo} (${sizeStr} MB)`)}`,
+                        value: { release, asset }
+                    });
+                });
+            }
+        });
+    });
+
+    if (releaseChoices.filter(choice => !choice.disabled).length === 0) {
+        console.log(chalk.yellow('No packages found for download.'));
+        return;
+    }
+
+    const { selectedPackage } = await inquirer.prompt({
+        type: 'list',
+        name: 'selectedPackage',
+        message: 'Select a package to download:',
+        choices: releaseChoices,
+        pageSize: 15
+    });
+
+    const downloadDir = path.resolve(process.cwd(), 'downloads');
+    fs.mkdirSync(downloadDir, { recursive: true });
+    await downloadPackage(selectedPackage.asset, downloadDir);
+}
+
 function getIdeCommand() {
     const ides = [
         { name: 'Cursor', cmd: 'cursor' },
@@ -427,89 +511,7 @@ export async function downloadRepo(repo) {
     }
 }
 
-// Show package selection menu organized by platform
-async function showPackageMenu(selectedRepo) {
-    const currentPlatform = getCurrentPlatform();
-    const releaseChoices = [];
-    
-    // Add section headers and organize by platform
-    selectedRepo.allReleases.forEach(release => {
-        const platforms = ['windows', 'macos', 'linux', 'universal'];
-        
-        platforms.forEach(platform => {
-            const assets = release.platformAssets[platform];
-            if (assets.length > 0) {
-                // Add platform header
-                const platformEmoji = {
-                    windows: '🪟',
-                    macos: '🍎', 
-                    linux: '🐧',
-                    universal: '🌐'
-                };
-                
-                const platformName = {
-                    windows: 'Windows',
-                    macos: 'macOS',
-                    linux: 'Linux',
-                    universal: 'Universal'
-                };
-                
-                const isCurrentPlatform = platform === currentPlatform.os || platform === 'universal';
-                const platformHeader = isCurrentPlatform 
-                    ? chalk.green(`${platformEmoji[platform]} ${platformName[platform]} (Your Platform)`)
-                    : chalk.gray(`${platformEmoji[platform]} ${platformName[platform]}`);
-                
-                // Add separator if not first platform in this release
-                const needsSeparator = releaseChoices.length > 0 && 
-                    !releaseChoices[releaseChoices.length - 1].name.includes('────');
-                
-                if (needsSeparator) {
-                    releaseChoices.push({
-                        name: chalk.gray('────────────────────────────────'),
-                        disabled: true
-                    });
-                }
-                
-                releaseChoices.push({
-                    name: `${chalk.bold(release.tag_name)} - ${platformHeader}`,
-                    disabled: true
-                });
-                
-                // Add assets for this platform
-                assets.forEach(asset => {
-                    const sizeStr = (asset.size / 1024 / 1024).toFixed(2);
-                    const archInfo = asset.detectedArch !== 'unknown' && asset.detectedArch !== 'universal' 
-                        ? chalk.cyan(`[${asset.detectedArch}]`) 
-                        : '';
-                    
-                    const highlight = isCurrentPlatform ? chalk.white : chalk.gray;
-                    
-                    releaseChoices.push({
-                        name: `  ${highlight(`${asset.name} ${archInfo} (${sizeStr} MB)`)}`,
-                        value: { release, asset }
-                    });
-                });
-            }
-        });
-    });
-
-    if (releaseChoices.filter(choice => !choice.disabled).length === 0) {
-        console.log(chalk.yellow('No packages found for download.'));
-        return;
-    }
-
-    const { selectedPackage } = await inquirer.prompt({
-        type: 'list',
-        name: 'selectedPackage',
-        message: 'Select a package to download:',
-        choices: releaseChoices,
-        pageSize: 15
-    });
-
-    const downloadDir = path.resolve(process.cwd(), 'downloads');
-    fs.mkdirSync(downloadDir, { recursive: true });
-    await downloadPackage(selectedPackage.asset, downloadDir);
-}
+function getAvailableDirectoryName(basePath) {
     if (!fs.existsSync(basePath)) return basePath;
     let counter = 2;
     let newPath;
