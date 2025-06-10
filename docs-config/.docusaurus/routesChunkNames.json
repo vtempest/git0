@@ -1,4 +1,18 @@
 {
+  "/customize-home-55b": {
+    "__comp": "66a0d7f4",
+    "__context": {
+      "plugin": "a7456010"
+    },
+    "config": "5e9f5e1a"
+  },
+  "/Footer-86a": {
+    "__comp": "ac46717f",
+    "__context": {
+      "plugin": "a7456010"
+    },
+    "config": "5e9f5e1a"
+  },
   "/-e5f": {
     "__comp": "1df93b7f",
     "__context": {
@@ -6,17 +20,17 @@
     },
     "config": "5e9f5e1a"
   },
-  "/-b83": {
+  "/-f42": {
     "__comp": "5e95c892",
     "__context": {
       "plugin": "aba21aa0"
     }
   },
-  "/-587": {
+  "/-625": {
     "__comp": "a7bd4aaa",
     "__props": "22dd74f7"
   },
-  "/-ad5": {
+  "/-b12": {
     "__comp": "a94703ab"
   },
   "/functions/-5b3": {
@@ -27,7 +41,7 @@
     "__comp": "17896441",
     "content": "4a829dc8"
   },
-  "/-bea": {
+  "/-825": {
     "__comp": "17896441",
     "content": "d140250a"
   }

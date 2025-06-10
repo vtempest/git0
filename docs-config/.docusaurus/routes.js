@@ -3,21 +3,31 @@ import ComponentCreator from '@docusaurus/ComponentCreator';
 
 export default [
   {
+    path: '/customize-home',
+    component: ComponentCreator('/customize-home', '55b'),
+    exact: true
+  },
+  {
+    path: '/Footer',
+    component: ComponentCreator('/Footer', '86a'),
+    exact: true
+  },
+  {
     path: '/',
     component: ComponentCreator('/', 'e5f'),
     exact: true
   },
   {
     path: '/',
-    component: ComponentCreator('/', 'b83'),
+    component: ComponentCreator('/', 'f42'),
     routes: [
       {
         path: '/',
-        component: ComponentCreator('/', '587'),
+        component: ComponentCreator('/', '625'),
         routes: [
           {
             path: '/',
-            component: ComponentCreator('/', 'ad5'),
+            component: ComponentCreator('/', 'b12'),
             routes: [
               {
                 path: '/functions/',
@@ -33,8 +43,9 @@ export default [
               },
               {
                 path: '/',
-                component: ComponentCreator('/', 'bea'),
-                exact: true
+                component: ComponentCreator('/', '825'),
+                exact: true,
+                sidebar: "default"
               }
             ]
           }

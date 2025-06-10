@@ -331,7 +331,8 @@ function getIdeCommand() {
         { name: 'Windsurf', cmd: 'windsurf' },
         { name: 'VSCode', cmd: 'code' },
         { name: 'Code Server', cmd: 'code-server' },
-        { name: 'Neovim', cmd: 'nvim' }
+        { name: 'Neovim', cmd: 'nvim' },
+        { name: 'Webstorm', cmd: 'webstorm' }
     ];
 
     for (const ide of ides) {
@@ -395,6 +396,7 @@ export function openInIDE(targetDir) {
 
 export async function installDependencies(targetDir) {
     process.chdir(targetDir);
+
 
     // Project type detection
     const detectors = {

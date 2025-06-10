@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunkcreate_apidocs=self.webpackChunkcreate_apidocs||[]).push([["432"],{1359:function(e,r,s){s.r(r),s.d(r,{default:()=>i});var a=s(5893);s(7294);var c=s(7026),t=s(9741),u=s(4681),n=s(8790),d=s(5490);function i(e){return(0,a.jsx)(t.FG,{className:(0,c.Z)(u.k.wrapper.docsPages),children:(0,a.jsx)(d.Z,{children:(0,n.H)(e.route.routes)})})}}}]);

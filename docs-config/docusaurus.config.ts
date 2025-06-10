@@ -74,7 +74,7 @@ export default async function createConfig(options: any = {}) {
     logoURL = "/",
     topbar = [],
     enableFuture = true,
-  } = {...customizeDocs, ...options};
+  } = { ...customizeDocs, ...options };
 
 
   // make sure src folder exists
@@ -84,8 +84,19 @@ export default async function createConfig(options: any = {}) {
 
   //copy readme into ./src
   if (fs.existsSync(readme)) {
-    fs.copyFileSync(readme, baseFolder + "src/index.md");
+
+
+    var index_frontmatter = '---\nid: index\ntitle: Overview\n' +
+      'sidebar_position: 1\ndisplayed_sidebar: '
+      + 'default' + '\n---\n\n'
+
+    var readmeContent = fs.readFileSync(readme, "utf8")
+    fs.writeFileSync(baseFolder + "src/index.md",
+      index_frontmatter + readmeContent);
   }
+
+  //prepend to index
+
 
   // foldersWithFunctions - should also add to tsconfig.json include:[]
   // compileForSubdomain is used to generate at domain.com/docs 
@@ -105,7 +116,7 @@ export default async function createConfig(options: any = {}) {
     onBrokenLinks: "ignore",
     onBrokenMarkdownLinks: "ignore",
     favicon,
-    projectName: name.replaceAll(" ","-"),
+    projectName: name.replaceAll(" ", "-"),
     presets: [
       [
         "classic",
@@ -137,8 +148,8 @@ export default async function createConfig(options: any = {}) {
     ],
 
     plugins: [
-     
-     
+
+
       require.resolve("docusaurus-lunr-search"),
 
       ...(typedocFolders.map(({ id, entryPoints }) => [
@@ -186,11 +197,11 @@ export default async function createConfig(options: any = {}) {
       },
       navbar: {
         title: name + " Docs",
-          logo: {
-            alt: "logo",
-            src: logo,
-            href: logoURL || "/",
-          },
+        logo: {
+          alt: "logo",
+          src: logo,
+          href: logoURL || "/",
+        },
         items: topbar
       },
 

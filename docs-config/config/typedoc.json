@@ -1,6 +1,5 @@
 {
-  "tsconfig": "./tsconfig.json",
-  "cname": "git0.js.org",
+  "tsconfig": "../tsconfig.json",
   "plugin": ["typedoc-plugin-markdown"],
   "entryPointStrategy": "expand",
   "navigation": {

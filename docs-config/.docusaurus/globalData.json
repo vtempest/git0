@@ -22,7 +22,8 @@
             },
             {
               "id": "index",
-              "path": "/"
+              "path": "/",
+              "sidebar": "default"
             }
           ],
           "draftIds": [],
@@ -42,7 +43,7 @@
   "docusaurus-plugin-google-gtag": {
     "default": {
       "trackingID": [
-        "/////G-E5TZ32BZD"
+        "G-E5TZ32BZD"
       ],
       "anonymizeIP": false,
       "id": "default"
@@ -51,8 +52,8 @@
   "docusaurus-lunr-search": {
     "default": {
       "fileNames": {
-        "searchDoc": "search-doc-1749472617882.json",
-        "lunrIndex": "lunr-index-1749472617882.json"
+        "searchDoc": "search-doc-1749598895331.json",
+        "lunrIndex": "lunr-index-1749598895331.json"
       }
     }
   }

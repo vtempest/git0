@@ -6,18 +6,18 @@
 export default {
   "future": {
     "v4": {
-      "removeLegacyPostBuildHeadAttribute": false,
+      "removeLegacyPostBuildHeadAttribute": true,
       "useCssCascadeLayers": false
     },
     "experimental_faster": {
-      "swcJsLoader": false,
-      "swcJsMinimizer": false,
-      "swcHtmlMinimizer": false,
-      "lightningCssMinimizer": false,
-      "mdxCrossCompilerCache": false,
-      "rspackBundler": false,
-      "rspackPersistentCache": false,
-      "ssgWorkerThreads": false
+      "swcJsLoader": true,
+      "swcJsMinimizer": true,
+      "swcHtmlMinimizer": true,
+      "lightningCssMinimizer": true,
+      "mdxCrossCompilerCache": true,
+      "rspackBundler": true,
+      "rspackPersistentCache": true,
+      "ssgWorkerThreads": true
     },
     "experimental_storage": {
       "type": "localStorage",
@@ -46,7 +46,7 @@ export default {
           "customCss": "./config/docs-theme.css"
         },
         "gtag": {
-          "trackingID": "/////G-E5TZ32BZD",
+          "trackingID": "G-E5TZ32BZD",
           "anonymizeIP": false
         }
       }
