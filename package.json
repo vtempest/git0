@@ -1,7 +1,7 @@
 {
     "name": "git0",
     "description": "CLI tool to search GitHub repositories, download source & releases for your system, and instantly set up, then install dependencies and open code editor.",
-    "version": "0.2.3",
+    "version": "0.2.4",
     "author": "vtempest",
     "dependencies": {
         "axios": "^1.9.0",
