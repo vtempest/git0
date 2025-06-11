@@ -112,7 +112,7 @@ async function showPackageMenu(selectedRepo) {
     const downloadDir = path.resolve(process.cwd());
     fs.mkdirSync(downloadDir, { recursive: true });
 
-    const downloadPath = path.join(downloadDir, asset.name);
+    const downloadPath = path.join(downloadDir, selectedPackage.asset.name);
     await Github.downloadPackage(selectedPackage.asset.browser_download_url, downloadPath);
 }
 
