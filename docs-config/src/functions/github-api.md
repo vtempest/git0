@@ -2,7 +2,7 @@
 
 ## default
 
-Defined in: [src/github-api.js:17](https://github.com/vtempest/git0/blob/a96db11cbcc85bdaa38db2e55b091a88c5cb44e5/src/github-api.js#L17)
+Defined in: [src/github-api.js:17](https://github.com/vtempest/git0/blob/5fbb41fe871c29eefc7450cb77b89ffe4c233fde/src/github-api.js#L17)
 
 GitHub API client for downloading repositories, searching, and managing releases
  GithubAPI
@@ -23,7 +23,7 @@ await github.downloadRepo('user/repo', './my-downloads');
 new default(options?: object): default;
 ```
 
-Defined in: [src/github-api.js:36](https://github.com/vtempest/git0/blob/a96db11cbcc85bdaa38db2e55b091a88c5cb44e5/src/github-api.js#L36)
+Defined in: [src/github-api.js:36](https://github.com/vtempest/git0/blob/5fbb41fe871c29eefc7450cb77b89ffe4c233fde/src/github-api.js#L36)
 
 Creates a new GithubAPI instance
 
@@ -133,7 +133,7 @@ const github = new GithubAPI({ debug: true });
 baseURL: string;
 ```
 
-Defined in: [src/github-api.js:39](https://github.com/vtempest/git0/blob/a96db11cbcc85bdaa38db2e55b091a88c5cb44e5/src/github-api.js#L39)
+Defined in: [src/github-api.js:39](https://github.com/vtempest/git0/blob/5fbb41fe871c29eefc7450cb77b89ffe4c233fde/src/github-api.js#L39)
 
 #### client()
 
@@ -143,7 +143,7 @@ client: (path: any, options?: object) => Promise<{
 }>;
 ```
 
-Defined in: [src/github-api.js:41](https://github.com/vtempest/git0/blob/a96db11cbcc85bdaa38db2e55b091a88c5cb44e5/src/github-api.js#L41)
+Defined in: [src/github-api.js:41](https://github.com/vtempest/git0/blob/5fbb41fe871c29eefc7450cb77b89ffe4c233fde/src/github-api.js#L41)
 
 ##### Parameters
 
@@ -194,7 +194,7 @@ Defined in: [src/github-api.js:41](https://github.com/vtempest/git0/blob/a96db11
 debug: boolean;
 ```
 
-Defined in: [src/github-api.js:38](https://github.com/vtempest/git0/blob/a96db11cbcc85bdaa38db2e55b091a88c5cb44e5/src/github-api.js#L38)
+Defined in: [src/github-api.js:38](https://github.com/vtempest/git0/blob/5fbb41fe871c29eefc7450cb77b89ffe4c233fde/src/github-api.js#L38)
 
 #### token
 
@@ -202,7 +202,7 @@ Defined in: [src/github-api.js:38](https://github.com/vtempest/git0/blob/a96db11
 token: string;
 ```
 
-Defined in: [src/github-api.js:37](https://github.com/vtempest/git0/blob/a96db11cbcc85bdaa38db2e55b091a88c5cb44e5/src/github-api.js#L37)
+Defined in: [src/github-api.js:37](https://github.com/vtempest/git0/blob/5fbb41fe871c29eefc7450cb77b89ffe4c233fde/src/github-api.js#L37)
 
 #### DEFAULT\_RESULTS\_PER\_PAGE
 
@@ -210,7 +210,7 @@ Defined in: [src/github-api.js:37](https://github.com/vtempest/git0/blob/a96db11
 static DEFAULT_RESULTS_PER_PAGE: number = 10;
 ```
 
-Defined in: [src/github-api.js:19](https://github.com/vtempest/git0/blob/a96db11cbcc85bdaa38db2e55b091a88c5cb44e5/src/github-api.js#L19)
+Defined in: [src/github-api.js:19](https://github.com/vtempest/git0/blob/5fbb41fe871c29eefc7450cb77b89ffe4c233fde/src/github-api.js#L19)
 
 ##### Constant
 
@@ -224,7 +224,7 @@ Number of results to return per page for repository searches
 downloadPackage(packageURL: any, downloadPath: string): Promise<string>;
 ```
 
-Defined in: [src/github-api.js:188](https://github.com/vtempest/git0/blob/a96db11cbcc85bdaa38db2e55b091a88c5cb44e5/src/github-api.js#L188)
+Defined in: [src/github-api.js:188](https://github.com/vtempest/git0/blob/5fbb41fe871c29eefc7450cb77b89ffe4c233fde/src/github-api.js#L188)
 
 Downloads a release asset from GitHub and provides installation instructions
 
@@ -299,7 +299,7 @@ const downloadPath = await github.downloadPackage(asset, './downloads/myapp');
 downloadRepo(repo: string, targetDir?: string): Promise<string>;
 ```
 
-Defined in: [src/github-api.js:69](https://github.com/vtempest/git0/blob/a96db11cbcc85bdaa38db2e55b091a88c5cb44e5/src/github-api.js#L69)
+Defined in: [src/github-api.js:69](https://github.com/vtempest/git0/blob/5fbb41fe871c29eefc7450cb77b89ffe4c233fde/src/github-api.js#L69)
 
 Downloads a GitHub repository as a tarball and extracts it to a local directory
 
@@ -388,7 +388,7 @@ const repoPath = await github.downloadRepo('user/repo', 'my-custom-dir');
 getCompatibleReleases(owner: string, repo: string): Promise<any[]>;
 ```
 
-Defined in: [src/github-api.js:310](https://github.com/vtempest/git0/blob/a96db11cbcc85bdaa38db2e55b091a88c5cb44e5/src/github-api.js#L310)
+Defined in: [src/github-api.js:310](https://github.com/vtempest/git0/blob/5fbb41fe871c29eefc7450cb77b89ffe4c233fde/src/github-api.js#L310)
 
 Gets releases compatible with the current platform
 
@@ -459,7 +459,7 @@ console.log(`Found ${compatible.length} compatible releases`);
 getCurrentPlatform(): any;
 ```
 
-Defined in: [src/github-api.js:262](https://github.com/vtempest/git0/blob/a96db11cbcc85bdaa38db2e55b091a88c5cb44e5/src/github-api.js#L262)
+Defined in: [src/github-api.js:262](https://github.com/vtempest/git0/blob/5fbb41fe871c29eefc7450cb77b89ffe4c233fde/src/github-api.js#L262)
 
 Detects the current operating system and architecture
 
@@ -482,7 +482,7 @@ console.log(`Running on ${platform.os} ${platform.arch}`);
 getReleases(owner: string, repo: string): Promise<any[]>;
 ```
 
-Defined in: [src/github-api.js:296](https://github.com/vtempest/git0/blob/a96db11cbcc85bdaa38db2e55b091a88c5cb44e5/src/github-api.js#L296)
+Defined in: [src/github-api.js:296](https://github.com/vtempest/git0/blob/5fbb41fe871c29eefc7450cb77b89ffe4c233fde/src/github-api.js#L296)
 
 Gets repository releases with platform categorization
 
@@ -553,7 +553,7 @@ console.log(`Found ${releases.length} releases`);
 parseURL(query: string): any;
 ```
 
-Defined in: [src/github-api.js:241](https://github.com/vtempest/git0/blob/a96db11cbcc85bdaa38db2e55b091a88c5cb44e5/src/github-api.js#L241)
+Defined in: [src/github-api.js:241](https://github.com/vtempest/git0/blob/5fbb41fe871c29eefc7450cb77b89ffe4c233fde/src/github-api.js#L241)
 
 Parses a GitHub URL or shorthand repository reference
 
@@ -614,7 +614,7 @@ if (parsed) {
 searchRepositories(query: string, options?: object): Promise<any[]>;
 ```
 
-Defined in: [src/github-api.js:130](https://github.com/vtempest/git0/blob/a96db11cbcc85bdaa38db2e55b091a88c5cb44e5/src/github-api.js#L130)
+Defined in: [src/github-api.js:130](https://github.com/vtempest/git0/blob/5fbb41fe871c29eefc7450cb77b89ffe4c233fde/src/github-api.js#L130)
 
 Searches for GitHub repositories by name and enriches results with release information
 

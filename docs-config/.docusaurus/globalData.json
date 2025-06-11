@@ -8,7 +8,7 @@
           "label": "Next",
           "isLast": true,
           "path": "/",
-          "mainDocId": "index",
+          "mainDocId": "functions/git0",
           "docs": [
             {
               "id": "functions/git0",
@@ -28,11 +28,6 @@
             {
               "id": "functions/modules",
               "path": "/functions/modules",
-              "sidebar": "default"
-            },
-            {
-              "id": "index",
-              "path": "/",
               "sidebar": "default"
             }
           ],
@@ -62,8 +57,8 @@
   "docusaurus-lunr-search": {
     "default": {
       "fileNames": {
-        "searchDoc": "search-doc-1749612409676.json",
-        "lunrIndex": "lunr-index-1749612409676.json"
+        "searchDoc": "search-doc-1749613179753.json",
+        "lunrIndex": "lunr-index-1749613179753.json"
       }
     }
   }

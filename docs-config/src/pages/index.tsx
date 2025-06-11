@@ -164,6 +164,17 @@ function App() {
     return () => window.removeEventListener('mousemove', handleMouseMove);
   }, []);
 
+  useEffect(() => {
+    // Check if Tailwind CDN is already attached
+    if (!document.getElementById('tailwind-cdn')) {
+      const script = document.createElement('script');
+      script.id = 'tailwind-cdn';
+      script.src = "https://cdn.tailwindcss.com";
+      script.async = true;
+      document.head.appendChild(script);
+    }
+  }, []);
+
   const copyToClipboard = (text: string, command: string) => {
     navigator.clipboard.writeText(text);
     setCopiedCommand(command);

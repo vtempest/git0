@@ -139,15 +139,6 @@ export default async function createConfig(options: any = {}) {
       ],
     ],
 
-    headTags: [
-      {
-        tagName: 'script',
-        attributes: {
-          src: 'https://cdn.tailwindcss.com',
-        },
-      },
-    ],
-
     plugins: [
 
 

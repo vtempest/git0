@@ -12,5 +12,4 @@ export default {
   "a94703ab": [() => import(/* webpackChunkName: "a94703ab" */ "@theme/DocRoot"), "@theme/DocRoot", require.resolveWeak("@theme/DocRoot")],
   "aba21aa0": [() => import(/* webpackChunkName: "aba21aa0" */ "@generated/docusaurus-plugin-content-docs/default/__plugin.json"), "@generated/docusaurus-plugin-content-docs/default/__plugin.json", require.resolveWeak("@generated/docusaurus-plugin-content-docs/default/__plugin.json")],
   "ac46717f": [() => import(/* webpackChunkName: "ac46717f" */ "@site/src/pages/Footer.tsx"), "@site/src/pages/Footer.tsx", require.resolveWeak("@site/src/pages/Footer.tsx")],
-  "c3a618e1": [() => import(/* webpackChunkName: "c3a618e1" */ "@site/src/functions/index.md"), "@site/src/functions/index.md", require.resolveWeak("@site/src/functions/index.md")],
-  "d140250a": [() => import(/* webpackChunkName: "d140250a" */ "@site/src/index.md"), "@site/src/index.md", require.resolveWeak("@site/src/index.md")],};
+  "c3a618e1": [() => import(/* webpackChunkName: "c3a618e1" */ "@site/src/functions/index.md"), "@site/src/functions/index.md", require.resolveWeak("@site/src/functions/index.md")],};

@@ -20,7 +20,7 @@ export default {
     logo: "https://i.imgur.com/857meew.png",
     favicon: "https://i.imgur.com/857meew.png",
     enableFasterBuildV4: false,
-    enableReadmeAsHome: true,
+    enableReadmeAsHome: false,
     topbar: [
       // {
       //   to: "/functions",

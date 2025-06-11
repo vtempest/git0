@@ -52,14 +52,6 @@ export default {
       }
     ]
   ],
-  "headTags": [
-    {
-      "tagName": "script",
-      "attributes": {
-        "src": "https://cdn.tailwindcss.com"
-      }
-    }
-  ],
   "plugins": [
     "/home/deck/Projects/git0/docs-config/node_modules/docusaurus-lunr-search/src/index.js",
     [
@@ -366,6 +358,7 @@ export default {
   ],
   "customFields": {},
   "scripts": [],
+  "headTags": [],
   "clientModules": [],
   "tagline": "",
   "titleDelimiter": "|",

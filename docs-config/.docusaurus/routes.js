@@ -14,15 +14,15 @@ export default [
   },
   {
     path: '/',
-    component: ComponentCreator('/', '0ff'),
+    component: ComponentCreator('/', '320'),
     routes: [
       {
         path: '/',
-        component: ComponentCreator('/', '243'),
+        component: ComponentCreator('/', '87c'),
         routes: [
           {
             path: '/',
-            component: ComponentCreator('/', '889'),
+            component: ComponentCreator('/', '1d6'),
             routes: [
               {
                 path: '/functions/',
@@ -45,12 +45,6 @@ export default [
               {
                 path: '/functions/modules',
                 component: ComponentCreator('/functions/modules', 'f7f'),
-                exact: true,
-                sidebar: "default"
-              },
-              {
-                path: '/',
-                component: ComponentCreator('/', '825'),
                 exact: true,
                 sidebar: "default"
               }

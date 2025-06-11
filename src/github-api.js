@@ -1,7 +1,7 @@
 import grab from 'grab-api.js';
 import chalk from 'chalk';
-import os from 'os';
 import gitUrlParse from 'git-url-parse';
+import os from 'os';
 import fs from 'fs';
 import * as tar from 'tar';
 import path from 'path';
