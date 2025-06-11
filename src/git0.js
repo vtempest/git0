@@ -4,7 +4,7 @@ import chalk from 'chalk';
 import { execSync, spawn } from 'child_process';
 import fs from 'fs';
 import path from 'path';
-import ora from ora;
+import ora from 'ora';
 import GithubAPI from './github-api'
 
 const Github = new GithubAPI({ debug: false })

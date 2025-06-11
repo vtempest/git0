@@ -174,7 +174,7 @@ function App() {
     document.head.appendChild(script);
     setTimeout(() =>
       setIsLoaded(true),
-      1300)
+      900)
   }, []);
 
   const copyToClipboard = (text: string, command: string) => {
