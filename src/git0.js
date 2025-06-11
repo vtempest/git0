@@ -5,7 +5,7 @@ import { execSync, spawn } from 'child_process';
 import fs from 'fs';
 import path from 'path';
 import ora from 'ora';
-import GithubAPI from './github-api'
+import GithubAPI from './github-api.js'
 
 const Github = new GithubAPI({ debug: false })
 
