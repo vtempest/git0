@@ -41,6 +41,7 @@ class GithubAPI {
         this.client = grab.instance({
             debug: this.debug,
             baseURL: this.baseURL,
+            timeout: 500,
             headers: this.token ? { Authorization: `token ${this.token}` } : {},
             onError: (error) => {
                 if (error.includes('403')) {
