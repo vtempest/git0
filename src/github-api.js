@@ -213,7 +213,7 @@ class GithubAPI {
             }
 
             // Provide installation instructions
-            this._provideInstallationInstructions(downloadPath, asset);
+            this._provideInstallationInstructions(downloadPath, fileName);
 
             return downloadPath;
         } catch (error) {
@@ -430,8 +430,7 @@ class GithubAPI {
      * @param {Object} asset - GitHub release asset object
      * @param {string} asset.name - Name of the asset file
      */
-    _provideInstallationInstructions(filePath, asset) {
-        const fileName = asset.name;
+    _provideInstallationInstructions(filePath, fileName) {
         const platform = this.getCurrentPlatform();
 
         if (platform.platform === 'win32') {
