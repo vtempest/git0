@@ -1,0 +1,60 @@
+{
+  "docusaurus-plugin-content-docs": {
+    "default": {
+      "path": "/",
+      "versions": [
+        {
+          "name": "current",
+          "label": "Next",
+          "isLast": true,
+          "path": "/",
+          "mainDocId": "index",
+          "docs": [
+            {
+              "id": "functions/globals",
+              "path": "/functions/globals",
+              "sidebar": "default"
+            },
+            {
+              "id": "functions/index",
+              "path": "/functions/",
+              "sidebar": "default"
+            },
+            {
+              "id": "index",
+              "path": "/",
+              "sidebar": "default"
+            }
+          ],
+          "draftIds": [],
+          "sidebars": {
+            "default": {
+              "link": {
+                "path": "/functions/globals",
+                "label": "functions/globals"
+              }
+            }
+          }
+        }
+      ],
+      "breadcrumbs": true
+    }
+  },
+  "docusaurus-plugin-google-gtag": {
+    "default": {
+      "trackingID": [
+        "G-E5TZ32BZD"
+      ],
+      "anonymizeIP": false,
+      "id": "default"
+    }
+  },
+  "docusaurus-lunr-search": {
+    "default": {
+      "fileNames": {
+        "searchDoc": "search-doc-1749612068805.json",
+        "lunrIndex": "lunr-index-1749612068805.json"
+      }
+    }
+  }
+}

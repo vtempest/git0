@@ -1,0 +1,19 @@
+{
+  "id": "functions/index",
+  "title": "index",
+  "description": "<img src=\"https://img.shields.io/discord/1110227955554209923.svg?label=Chat&logo=Discord&colorB=7289da&style=flat\"",
+  "source": "@site/src/functions/index.md",
+  "sourceDirName": "functions",
+  "slug": "/functions/",
+  "permalink": "/functions/",
+  "draft": false,
+  "unlisted": false,
+  "tags": [],
+  "version": "current",
+  "frontMatter": {},
+  "sidebar": "default",
+  "previous": {
+    "title": "globals",
+    "permalink": "/functions/globals"
+  }
+}

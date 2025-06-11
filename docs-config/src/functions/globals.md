@@ -1,49 +1,13 @@
-## downloadRepo()
-
-```ts
-function downloadRepo(repo: any): Promise<void>;
-```
-
-Defined in: [git0.js:506](https://github.com/vtempest/git0/blob/f5565c601a25c627e02f22dfda1f72982fbcaeae/git0.js#L506)
-
-### Parameters
-
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-
-`repo`
-
-</td>
-<td>
-
-`any`
-
-</td>
-</tr>
-</tbody>
-</table>
-
-### Returns
-
-`Promise`&lt;`void`&gt;
-
-***
-
 ## installDependencies()
 
 ```ts
-function installDependencies(targetDir: any): Promise<void>;
+function installDependencies(targetDir: string): Promise<void>;
 ```
 
-Defined in: [git0.js:397](https://github.com/vtempest/git0/blob/f5565c601a25c627e02f22dfda1f72982fbcaeae/git0.js#L397)
+Defined in: git0.js:208
+
+Automatically detects project type and installs dependencies
+Supports Node.js, Docker, Python, Rust, and Go projects
 
 ### Parameters
 
@@ -52,6 +16,7 @@ Defined in: [git0.js:397](https://github.com/vtempest/git0/blob/f5565c601a25c627
 <tr>
 <th>Parameter</th>
 <th>Type</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
@@ -63,7 +28,12 @@ Defined in: [git0.js:397](https://github.com/vtempest/git0/blob/f5565c601a25c627
 </td>
 <td>
 
-`any`
+`string`
+
+</td>
+<td>
+
+Path to the project directory
 
 </td>
 </tr>
@@ -73,16 +43,23 @@ Defined in: [git0.js:397](https://github.com/vtempest/git0/blob/f5565c601a25c627
 ### Returns
 
 `Promise`&lt;`void`&gt;
+
+### Export
+
+### Async
 
 ***
 
 ## openInIDE()
 
 ```ts
-function openInIDE(targetDir: any): void;
+function openInIDE(targetDir: string): void;
 ```
 
-Defined in: [git0.js:354](https://github.com/vtempest/git0/blob/f5565c601a25c627e02f22dfda1f72982fbcaeae/git0.js#L354)
+Defined in: git0.js:158
+
+Opens a directory in the first available IDE/editor
+Also attempts to open a README or package.json file after 3 seconds
 
 ### Parameters
 
@@ -91,6 +68,7 @@ Defined in: [git0.js:354](https://github.com/vtempest/git0/blob/f5565c601a25c627
 <tr>
 <th>Parameter</th>
 <th>Type</th>
+<th>Description</th>
 </tr>
 </thead>
 <tbody>
@@ -102,7 +80,12 @@ Defined in: [git0.js:354](https://github.com/vtempest/git0/blob/f5565c601a25c627
 </td>
 <td>
 
-`any`
+`string`
+
+</td>
+<td>
+
+Path to the directory to open
 
 </td>
 </tr>
@@ -113,41 +96,4 @@ Defined in: [git0.js:354](https://github.com/vtempest/git0/blob/f5565c601a25c627
 
 `void`
 
-***
-
-## searchRepositories()
-
-```ts
-function searchRepositories(query: any): Promise<any>;
-```
-
-Defined in: [git0.js:467](https://github.com/vtempest/git0/blob/f5565c601a25c627e02f22dfda1f72982fbcaeae/git0.js#L467)
-
-### Parameters
-
-<table>
-<thead>
-<tr>
-<th>Parameter</th>
-<th>Type</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>
-
-`query`
-
-</td>
-<td>
-
-`any`
-
-</td>
-</tr>
-</tbody>
-</table>
-
-### Returns
-
-`Promise`&lt;`any`&gt;
+### Export

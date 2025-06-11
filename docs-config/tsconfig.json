@@ -1,6 +1,6 @@
 {
   "include": [
-    "../git0.js"
+    "../src/git0.js"
    ],
   "compilerOptions": {
     "jsx": "react",
