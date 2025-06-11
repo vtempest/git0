@@ -4,7 +4,9 @@ export default {
     typedocFolders: [
       {
         id: "functions",
-        entryPoints: ["../src/git0.js"], // also remember to set in ../tsconfig.json {entryPoints:[...]}
+        entryPoints: [
+          "../src/**/*"
+        ], // also remember to set in ../tsconfig.json {entryPoints:[...]}
       },
     ],
     showEditsOnGitHub: true,

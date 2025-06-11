@@ -13,7 +13,11 @@
   "frontMatter": {},
   "sidebar": "default",
   "previous": {
-    "title": "globals",
-    "permalink": "/functions/globals"
+    "title": "github-api",
+    "permalink": "/functions/github-api"
+  },
+  "next": {
+    "title": "modules",
+    "permalink": "/functions/modules"
   }
 }

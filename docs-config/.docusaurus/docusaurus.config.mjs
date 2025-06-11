@@ -67,7 +67,7 @@ export default {
       {
         "id": "functions",
         "entryPoints": [
-          "../src/git0.js"
+          "../src/**/*"
         ],
         "exclude": [
           "**/node_modules/**/*",

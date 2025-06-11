@@ -1,10 +1,12 @@
+[Documentation](modules.md) / git0
+
 ## installDependencies()
 
 ```ts
 function installDependencies(targetDir: string): Promise<void>;
 ```
 
-Defined in: git0.js:208
+Defined in: [src/git0.js:208](https://github.com/vtempest/git0/blob/a96db11cbcc85bdaa38db2e55b091a88c5cb44e5/src/git0.js#L208)
 
 Automatically detects project type and installs dependencies
 Supports Node.js, Docker, Python, Rust, and Go projects
@@ -56,7 +58,7 @@ Path to the project directory
 function openInIDE(targetDir: string): void;
 ```
 
-Defined in: git0.js:158
+Defined in: [src/git0.js:158](https://github.com/vtempest/git0/blob/a96db11cbcc85bdaa38db2e55b091a88c5cb44e5/src/git0.js#L158)
 
 Opens a directory in the first available IDE/editor
 Also attempts to open a README or package.json file after 3 seconds

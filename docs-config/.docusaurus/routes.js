@@ -14,15 +14,15 @@ export default [
   },
   {
     path: '/',
-    component: ComponentCreator('/', 'f42'),
+    component: ComponentCreator('/', '0ff'),
     routes: [
       {
         path: '/',
-        component: ComponentCreator('/', '625'),
+        component: ComponentCreator('/', '243'),
         routes: [
           {
             path: '/',
-            component: ComponentCreator('/', 'b12'),
+            component: ComponentCreator('/', '889'),
             routes: [
               {
                 path: '/functions/',
@@ -31,8 +31,20 @@ export default [
                 sidebar: "default"
               },
               {
-                path: '/functions/globals',
-                component: ComponentCreator('/functions/globals', 'a2b'),
+                path: '/functions/git0',
+                component: ComponentCreator('/functions/git0', '8bf'),
+                exact: true,
+                sidebar: "default"
+              },
+              {
+                path: '/functions/github-api',
+                component: ComponentCreator('/functions/github-api', 'da5'),
+                exact: true,
+                sidebar: "default"
+              },
+              {
+                path: '/functions/modules',
+                component: ComponentCreator('/functions/modules', 'f7f'),
                 exact: true,
                 sidebar: "default"
               },
