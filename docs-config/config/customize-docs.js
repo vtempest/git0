@@ -1,7 +1,6 @@
 export default {
     name: "git0",
     domain: "https://git0.js.org",
-    baseFolder: "./",
     typedocFolders: [
       {
         id: "functions",
@@ -15,10 +14,10 @@ export default {
     readme: "../readme.md",
     sanitizeComments: false,
     logoURL: "/",
+    baseFolder: "./",
     logo: "https://i.imgur.com/857meew.png",
     favicon: "https://i.imgur.com/857meew.png",
-    enableFasterBuildV4: true,
-    enableSidebarOnHome: true,
+    enableFasterBuildV4: false,
     enableReadmeAsHome: true,
     topbar: [
       // {

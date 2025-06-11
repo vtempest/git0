@@ -3,11 +3,6 @@ import ComponentCreator from '@docusaurus/ComponentCreator';
 
 export default [
   {
-    path: '/customize-home',
-    component: ComponentCreator('/customize-home', '55b'),
-    exact: true
-  },
-  {
     path: '/Footer',
     component: ComponentCreator('/Footer', '86a'),
     exact: true

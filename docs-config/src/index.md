@@ -13,21 +13,21 @@ displayed_sidebar: default
         <img src="https://img.shields.io/discord/1110227955554209923.svg?label=Chat&logo=Discord&colorB=7289da&style=flat"
             alt="Join Discord" />
     </a>
-     <a href="https://github.com/vtempest/gg/discussions">
-     <img alt="GitHub Stars" src="https://img.shields.io/github/stars/vtempest/gg" /></a>
-    <a href="https://github.com/vtempest/gg/discussions">
+     <a href="https://github.com/vtempest/git0/discussions">
+     <img alt="GitHub Stars" src="https://img.shields.io/github/stars/vtempest/git0" /></a>
+    <a href="https://github.com/vtempest/git0/discussions">
     <img alt="GitHub Discussions"
-        src="https://img.shields.io/github/discussions/vtempest/gg" />
+        src="https://img.shields.io/github/discussions/vtempest/git0" />
     </a>
-    <a href="https://github.com/vtempest/gg/pulse" alt="Activity">
-        <img src="https://img.shields.io/github/commit-activity/m/vtempest/gg" />
+    <a href="https://github.com/vtempest/git0/pulse" alt="Activity">
+        <img src="https://img.shields.io/github/commit-activity/m/vtempest/git0" />
     </a>
-    <img src="https://img.shields.io/github/last-commit/vtempest/gg.svg?style=flat-square" alt="GitHub last commit" />
+    <img src="https://img.shields.io/github/last-commit/vtempest/git0.svg?style=flat-square" alt="GitHub last commit" />
 </p>
 <p align="center">
         <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square"
             alt="PRs Welcome" />
-    <a href="https://codespaces.new/vtempest/gg">
+    <a href="https://codespaces.new/vtempest/git0">
     <img src="https://github.com/codespaces/badge.svg" width="150" height="20" />
     </a>
 </p>  
@@ -64,26 +64,25 @@ bun install -g git0
 
 ## 🎯 Usage
 
-
-### Search and Download
 ```bash
 # Search for repositories by name
 gg react starter
 
 # Direct download from GitHub URL
+## gg and git0 both work
 gg https://github.com/facebook/react
 
 # Download using owner/repo shorthand
-## gg and git0 both work
-git0 facebook/react
+git0 react starter
 
-## Use without installing
-npx git0 react starter
+## Use git0 without installing, (only node needed)
+# (copy into your project's readme for quick setup)
+npx git0 facebook/react
 ```
 
 ### Supported Project Types
 
-GG automatically detects and sets up the following project types:
+git0 automatically detects and sets up the following project types:
 
 | Project Type | Detection | Installation |
 |-------------|-----------|-------------|
@@ -95,7 +94,7 @@ GG automatically detects and sets up the following project types:
 
 ### Supported IDEs
 
-GG automatically detects and opens projects in your preferred IDE:
+git0 automatically detects and opens projects in your preferred IDE:
 
 - **Cursor** (`cursor`)
 - **Windsurf** (`windsurf`) 
@@ -104,6 +103,18 @@ GG automatically detects and opens projects in your preferred IDE:
 - **Neovim** (`nvim`)
 
 ## 🔧 Configuration
+
+
+
+### What Happens After Download
+
+1. **Repository is downloaded** to your current directory
+2. **Project type is detected** automatically
+3. **Dependencies are installed** based on project type
+4. **IDE is launched** automatically (if available)
+5. **Development server starts** (for Node.js projects)
+
+If a directory with the same name exists, git0 automatically appends a number (e.g., `react-2`, `react-3`).
 
 ### GitHub Token (Optional)
 
@@ -114,13 +125,3 @@ export GITHUB_TOKEN=your_github_token_here
 ```
 
 Without a token, you're limited to 60 requests per hour. With a token, you get 5,000 requests per hour.
-
-### What Happens After Download
-
-1. **Repository is downloaded** to your current directory
-2. **Project type is detected** automatically
-3. **Dependencies are installed** based on project type
-4. **IDE is launched** automatically (if available)
-5. **Development server starts** (for Node.js projects)
-
-If a directory with the same name exists, GG automatically appends a number (e.g., `react-2`, `react-3`).

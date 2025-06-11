@@ -4,7 +4,7 @@
 function downloadRepo(repo: any): Promise<void>;
 ```
 
-Defined in: [git0.js:506](https://github.com/vtempest/git0/blob/5ad15f56050b5bcd90d629bc617422361c7db421/git0.js#L506)
+Defined in: [git0.js:506](https://github.com/vtempest/git0/blob/f5565c601a25c627e02f22dfda1f72982fbcaeae/git0.js#L506)
 
 ### Parameters
 
@@ -43,7 +43,7 @@ Defined in: [git0.js:506](https://github.com/vtempest/git0/blob/5ad15f56050b5bcd
 function installDependencies(targetDir: any): Promise<void>;
 ```
 
-Defined in: [git0.js:397](https://github.com/vtempest/git0/blob/5ad15f56050b5bcd90d629bc617422361c7db421/git0.js#L397)
+Defined in: [git0.js:397](https://github.com/vtempest/git0/blob/f5565c601a25c627e02f22dfda1f72982fbcaeae/git0.js#L397)
 
 ### Parameters
 
@@ -82,7 +82,7 @@ Defined in: [git0.js:397](https://github.com/vtempest/git0/blob/5ad15f56050b5bcd
 function openInIDE(targetDir: any): void;
 ```
 
-Defined in: [git0.js:354](https://github.com/vtempest/git0/blob/5ad15f56050b5bcd90d629bc617422361c7db421/git0.js#L354)
+Defined in: [git0.js:354](https://github.com/vtempest/git0/blob/f5565c601a25c627e02f22dfda1f72982fbcaeae/git0.js#L354)
 
 ### Parameters
 
@@ -121,7 +121,7 @@ Defined in: [git0.js:354](https://github.com/vtempest/git0/blob/5ad15f56050b5bcd
 function searchRepositories(query: any): Promise<any>;
 ```
 
-Defined in: [git0.js:467](https://github.com/vtempest/git0/blob/5ad15f56050b5bcd90d629bc617422361c7db421/git0.js#L467)
+Defined in: [git0.js:467](https://github.com/vtempest/git0/blob/f5565c601a25c627e02f22dfda1f72982fbcaeae/git0.js#L467)
 
 ### Parameters
 

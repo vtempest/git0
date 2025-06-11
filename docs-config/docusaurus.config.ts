@@ -73,7 +73,8 @@ export default async function createConfig(options: any = {}) {
     logo = undefined,
     logoURL = "/",
     topbar = [],
-    enableFuture = true,
+    enableFasterBuildV4 = false,
+    enableReadmeAsHome = true,
   } = { ...customizeDocs, ...options };
 
 
@@ -83,7 +84,7 @@ export default async function createConfig(options: any = {}) {
   }
 
   //copy readme into ./src
-  if (fs.existsSync(readme)) {
+  if (fs.existsSync(readme) && enableReadmeAsHome) {
 
 
     var index_frontmatter = '---\nid: index\ntitle: Overview\n' +
@@ -104,7 +105,7 @@ export default async function createConfig(options: any = {}) {
   // subdomain like docprojects.user.github.io
   // sanitizeComments helps avoid errors in markdown like <> {} etc
   return {
-    future: enableFuture ? {
+    future: enableFasterBuildV4 ? {
       v4: {
         removeLegacyPostBuildHeadAttribute: true, // REQUIRED for ssgWorkerThreads
       },
@@ -159,6 +160,7 @@ export default async function createConfig(options: any = {}) {
           entryPoints,
           exclude: [
             "**/node_modules/**/*",
+            "pages/**/*"
           ],
           tsconfig,
           out: baseFolder + "src/" + id,

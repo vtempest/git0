@@ -6,18 +6,18 @@
 export default {
   "future": {
     "v4": {
-      "removeLegacyPostBuildHeadAttribute": true,
+      "removeLegacyPostBuildHeadAttribute": false,
       "useCssCascadeLayers": false
     },
     "experimental_faster": {
-      "swcJsLoader": true,
-      "swcJsMinimizer": true,
-      "swcHtmlMinimizer": true,
-      "lightningCssMinimizer": true,
-      "mdxCrossCompilerCache": true,
-      "rspackBundler": true,
-      "rspackPersistentCache": true,
-      "ssgWorkerThreads": true
+      "swcJsLoader": false,
+      "swcJsMinimizer": false,
+      "swcHtmlMinimizer": false,
+      "lightningCssMinimizer": false,
+      "mdxCrossCompilerCache": false,
+      "rspackBundler": false,
+      "rspackPersistentCache": false,
+      "ssgWorkerThreads": false
     },
     "experimental_storage": {
       "type": "localStorage",
@@ -70,7 +70,8 @@ export default {
           "../git0.js"
         ],
         "exclude": [
-          "**/node_modules/**/*"
+          "**/node_modules/**/*",
+          "pages/**/*"
         ],
         "tsconfig": "./tsconfig.json",
         "out": "./src/functions",
