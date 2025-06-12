@@ -17,6 +17,7 @@
     "bin": {
         "g": "./src/git0.js",
         "gg": "./src/git0.js",
+        "fm": "./src/fm.js",
         "git0": "./src/git0.js"
     },
     "keywords": [

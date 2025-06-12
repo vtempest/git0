@@ -18,7 +18,7 @@
     <img src="https://img.shields.io/github/last-commit/vtempest/git0.svg?style=flat-square" alt="GitHub last commit" />
 </p>
 <p align="center">
-        <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square"
+        <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"
             alt="PRs Welcome" />
     <a href="https://codespaces.new/vtempest/git0">
     <img src="https://github.com/codespaces/badge.svg" width="150" height="20" />

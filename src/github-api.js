@@ -1,4 +1,4 @@
-import grab from 'grab-api.js';
+import {grab, log} from 'grab-api.js';
 import chalk from 'chalk';
 import gitUrlParse from 'git-url-parse';
 import os from 'os';
@@ -38,7 +38,7 @@ class GithubAPI {
         this.debug = options.debug || false;
         this.baseURL = options.baseURL || 'https://api.github.com';
 
-        this.client = grab.instance({
+        this.callGithub = grab.instance({
             debug: this.debug,
             baseURL: this.baseURL,
             timeout: 500,
@@ -95,10 +95,10 @@ class GithubAPI {
             }
         };
 
-        let response = await this.client(url, params);
+        let response = await this.callGithub(url, params);
 
         if (response.error) {
-            response = await this.client(url.replace("/master", "/main"), params);
+            response = await this.callGithub(url.replace("/master", "/main"), params);
         }
 
         return extractPath;
@@ -108,7 +108,7 @@ class GithubAPI {
      * Searches for GitHub repositories by name and enriches results with release information
      * @param {string} query - Search query for repository names
      * @param {Object} [options={}] - Search options
-     * 
+     * @param {number} [options.getReleaseInfo] - Should also check releases for each result
      * @param {number} [options.perPage] - Number of results per page (defaults to DEFAULT_RESULTS_PER_PAGE)
      * @param {string} [options.sort='stars'] - Sort field (stars, forks, updated)
      * @param {string} [options.order='desc'] - Sort order (asc, desc)
@@ -137,7 +137,7 @@ class GithubAPI {
                 getReleaseInfo = true
             } = options;
 
-            const response = await this.client('/search/repositories', {
+            const response = await this.callGithub('/search/repositories', {
                 q: `${query} in:name`,
                 sort,
                 order,
@@ -153,7 +153,7 @@ class GithubAPI {
                 // Check for releases for each repository
                 await Promise.all(
                     response.items.map(async (repo) => {
-                        const releases = await this.client(`/repos/${repo.owner.login}/${repo.name}/releases`);
+                        const releases = await this.callGithub(`/repos/${repo.owner.login}/${repo.name}/releases`);
 
                         const currentPlatform = this.getCurrentPlatform();
                         const compatibleReleases = this._filterReleasesByPlatform(releases, currentPlatform);
@@ -162,7 +162,7 @@ class GithubAPI {
                         return {
                             ...repo,
                             hasReleases: releases?.length > 0,
-                            hasCompatibleReleases: compatibleReleases.length > 0,
+                            hasCompatibleReleases: compatibleReleases?.length > 0,
                             releases: compatibleReleases,
                             allReleases: categorizedReleases
                         };
@@ -192,7 +192,7 @@ class GithubAPI {
         console.log(chalk.blue(`📦 Downloading ${fileName}...`));
 
         try {
-            await this.client(packageURL, {
+            await this.callGithub(packageURL, {
                 onStream: async (res) => {
                     const nodeStream = (await import('stream'))?.Readable.fromWeb(res);
                     await new Promise((resolve, reject) => {
@@ -200,8 +200,7 @@ class GithubAPI {
                     });
                 }
             });
-
-            console.log(chalk.green(`✅ Downloaded ${fileName} to ${downloadPath}`));
+            log(`✅ Downloaded ${fileName} to ${downloadPath}`, true, 'color: green');
 
             // Try to make executable if it's a binary
             if (process.platform !== 'win32' && !fileName.includes('.')) {
@@ -295,7 +294,7 @@ class GithubAPI {
      * console.log(`Found ${releases.length} releases`);
      */
     async getReleases(owner, repo) {
-        const releases = await this.client(`/repos/${owner}/${repo}/releases`);
+        const releases = await this.callGithub(`/repos/${owner}/${repo}/releases`);
         return this._categorizeReleasesByPlatform(releases);
     }
 
@@ -309,7 +308,7 @@ class GithubAPI {
      * console.log(`Found ${compatible.length} compatible releases`);
      */
     async getCompatibleReleases(owner, repo) {
-        const releases = await this.client(`/repos/${owner}/${repo}/releases`);
+        const releases = await this.callGithub(`/repos/${owner}/${repo}/releases`);
         const currentPlatform = this.getCurrentPlatform();
         return this._filterReleasesByPlatform(releases, currentPlatform);
     }
@@ -419,8 +418,8 @@ class GithubAPI {
     _filterReleasesByPlatform(releases, currentPlatform) {
         const categorized = this._categorizeReleasesByPlatform(releases);
         return categorized.filter(release =>
-            release.platformAssets[currentPlatform.os].length > 0 ||
-            release.platformAssets.universal.length > 0
+            release.platformAssets[currentPlatform.os]?.length > 0 ||
+            release.platformAssets.universal?.length > 0
         );
     }
 
