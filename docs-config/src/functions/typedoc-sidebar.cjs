@@ -4,6 +4,11 @@ const typedocSidebar = {
   items: [
     {
       type: "doc",
+      id: "functions/fm",
+      label: "fm"
+    },
+    {
+      type: "doc",
       id: "functions/git0",
       label: "git0"
     },

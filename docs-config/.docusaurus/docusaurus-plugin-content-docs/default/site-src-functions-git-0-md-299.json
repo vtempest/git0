@@ -12,6 +12,10 @@
   "version": "current",
   "frontMatter": {},
   "sidebar": "default",
+  "previous": {
+    "title": "fm",
+    "permalink": "/functions/fm"
+  },
   "next": {
     "title": "github-api",
     "permalink": "/functions/github-api"

@@ -1,8 +1,13 @@
 {
     "name": "git0",
     "description": "CLI tool to search GitHub repositories, download source & releases for your system, and instantly set up, then install dependencies and open code editor.",
-    "version": "0.2.12",
+    "version": "0.2.13",
     "author": "vtempest",
+    "scripts": {
+        "docs": "cd docs-config && bun run build:docs",
+        "demo": "bun src/git0.js react template",
+        "publish:npm": "npm version patch && npm publish --access public"
+    },
     "dependencies": {
         "chalk": "^5.4.1",
         "git-url-parse": "^16.1.0",
@@ -20,16 +25,14 @@
         "fm": "./src/fm.js",
         "git0": "./src/git0.js"
     },
+    "type": "module",
     "keywords": [
         "github",
+        "git",
+        "package",
+        "manager",
         "cli",
         "download"
     ],
-    "license": "MIT",
-    "scripts": {
-        "docs": "cd docs-config && bun run build:docs",
-        "demo": "bun src/git0.js react template",
-        "publish:npm": "npm version patch && npm publish --access public"
-    },
-    "type": "module"
+    "license": "MIT"
 }

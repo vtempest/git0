@@ -171,10 +171,9 @@ function App() {
     script.id = 'tailwind-cdn';
     script.src = "https://cdn.tailwindcss.com";
     script.async = true;
+    script.onload = () => setIsLoaded(true); // Only called when Tailwind is actually loaded
     document.head.appendChild(script);
-    setTimeout(() =>
-      setIsLoaded(true),
-      900)
+
   }, []);
 
   const copyToClipboard = (text: string, command: string) => {

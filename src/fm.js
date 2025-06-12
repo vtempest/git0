@@ -1,10 +1,10 @@
 #!/usr/bin/env node
+import fs from 'fs';
+import path from 'path';
+import readline from 'readline';
+import { execSync } from 'child_process';
+import os from 'os';
 
-const fs = require('fs');
-const path = require('path');
-const readline = require('readline');
-const { execSync } = require('child_process');
-const os = require('os');
 
 class FileManager {
   constructor() {

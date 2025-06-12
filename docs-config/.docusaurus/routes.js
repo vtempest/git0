@@ -14,19 +14,25 @@ export default [
   },
   {
     path: '/',
-    component: ComponentCreator('/', '320'),
+    component: ComponentCreator('/', '45a'),
     routes: [
       {
         path: '/',
-        component: ComponentCreator('/', '87c'),
+        component: ComponentCreator('/', '1de'),
         routes: [
           {
             path: '/',
-            component: ComponentCreator('/', '1d6'),
+            component: ComponentCreator('/', '65d'),
             routes: [
               {
                 path: '/functions/',
                 component: ComponentCreator('/functions/', '5b3'),
+                exact: true,
+                sidebar: "default"
+              },
+              {
+                path: '/functions/fm',
+                component: ComponentCreator('/functions/fm', '78b'),
                 exact: true,
                 sidebar: "default"
               },

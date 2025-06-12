@@ -4,7 +4,6 @@ import chalk from 'chalk';
 import { execSync, spawn } from 'child_process';
 import fs from 'fs';
 import path from 'path';
-import ora from 'ora';
 import GithubAPI from './github-api.js'
 
 const Github = new GithubAPI({ debug: false })
@@ -41,7 +40,7 @@ async function showPackageMenu(selectedRepo) {
 
         platforms.forEach(platform => {
             const assets = release.platformAssets[platform];
-            if (assets.length > 0) {
+            if (assets?.length > 0) {
                 // Add platform header
                 const platformEmoji = {
                     windows: '🪟',
@@ -63,7 +62,7 @@ async function showPackageMenu(selectedRepo) {
                     : chalk.gray(`${platformEmoji[platform]} ${platformName[platform]}`);
 
                 // Add separator if not first platform in this release
-                const needsSeparator = releaseChoices.length > 0 &&
+                const needsSeparator = releaseChoices?.length > 0 &&
                     !releaseChoices[releaseChoices.length - 1].name.includes('────');
 
                 if (needsSeparator) {
@@ -96,7 +95,7 @@ async function showPackageMenu(selectedRepo) {
         });
     });
 
-    if (releaseChoices.filter(choice => !choice.disabled).length === 0) {
+    if (releaseChoices.filter(choice => !choice.disabled)?.length === 0) {
         log(chalk.yellow('No packages found for download.'));
         return;
     }

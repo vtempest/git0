@@ -2,27 +2,13 @@
     <img  src="https://i.imgur.com/poOtI3N.png" />
 </p>
 <p align="center">
-    <a href="https://discord.gg/SJdBqBz3tV">
-        <img src="https://img.shields.io/discord/1110227955554209923.svg?label=Chat&logo=Discord&colorB=7289da&style=flat"
-            alt="Join Discord" />
-    </a>
-     <a href="https://github.com/vtempest/git0/discussions">
-     <img alt="GitHub Stars" src="https://img.shields.io/github/stars/vtempest/git0" /></a>
-    <a href="https://github.com/vtempest/git0/discussions">
-    <img alt="GitHub Discussions"
-        src="https://img.shields.io/github/discussions/vtempest/git0" />
-    </a>
-    <a href="https://github.com/vtempest/git0/pulse" alt="Activity">
-        <img src="https://img.shields.io/github/commit-activity/m/vtempest/git0" />
-    </a>
-    <img src="https://img.shields.io/github/last-commit/vtempest/git0.svg?style=flat-square" alt="GitHub last commit" />
-</p>
-<p align="center">
-        <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg"
-            alt="PRs Welcome" />
-    <a href="https://codespaces.new/vtempest/git0">
-    <img src="https://github.com/codespaces/badge.svg" width="150" height="20" />
-    </a>
+    <a href="https://discord.gg/SJdBqBz3tV"><img src="https://img.shields.io/discord/1110227955554209923.svg?label=Chat&logo=Discord&colorB=7289da&style=flat"/></a>
+    <a href="https://github.com/vtempest/git0/discussions"><img alt="GitHub Stars" src="https://img.shields.io/github/stars/vtempest/git0" /></a>
+    <a href="https://github.com/vtempest/git0/discussions"><img alt="GitHub Discussions" src="https://img.shields.io/github/discussions/vtempest/git0" /></a>
+    <a href="https://github.com/vtempest/git0/pulse" alt="Activity"><img src="https://img.shields.io/github/commit-activity/m/vtempest/git0" /></a>
+    <img src="https://img.shields.io/github/last-commit/vtempest/git0.svg" alt="GitHub last commit" />
+    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg" />
+    <a href="https://codespaces.new/vtempest/git0"><img src="https://github.com/codespaces/badge.svg" width="150" height="20" /></a>
 </p>  
 
 # Git0: Download Git Repo on Step Zero 
@@ -46,26 +32,28 @@ bun install -g git0
 - **Search GitHub repositories** by name with fuzzy matching
 - **Download repositories** directly from GitHub URLs or owner/repo shortcuts. Skip the manual git clone, cd, install dance
 - **Get Releases** instantly download latest release for your system or all systems
-- **Automatic dependency detection** and installation for multiple project types
+- **Automatic dependency installation** and installation for multiple project types
 - **Smart IDE integration** - automatically opens projects in your preferred editor
 - **Cross-platform support** - works on Windows, macOS, and Linux
 - **Conflict resolution** - handles directory naming conflicts automatically
+- **Faster than git** - skips `.git` history and uncompresses while downloading
 
 ## 🎯 Usage
 
 ```bash
-# Search for repositories by name
-gg react starter
 
 # Direct download from GitHub URL
-## gg and git0 both work
-gg https://github.com/facebook/react
+## g and git0 both work
+g https://github.com/facebook/react
+
+# Search for repositories by name
+g react starter
 
 # Download using owner/repo shorthand
-git0 react starter
+git0 facebook/react
 
-## Use git0 without installing, (only node needed)
-# (copy into your project's readme for quick setup)
+# Use git0 without installing, (only node needed)
+# (copy this line into your project's readme to help others setup)
 npx git0 facebook/react
 ```
 
@@ -90,6 +78,7 @@ git0 automatically detects and opens projects in your preferred IDE:
 - **VS Code** (`code`)
 - **Code Server** (`code-server`)
 - **Neovim** (`nvim`)
+- **Webstorm** (`webstorm`)
 
 ## 🔧 Configuration
 
